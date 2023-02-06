@@ -1,0 +1,18 @@
+/* Height , Weitght */
+.h-screen{
+    height: 100vh;
+}
+
+/* button */
+.primary-btn{
+    background-color: var(--primary);
+    color: white;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+.secondary-btn{
+    background-color: var(--primary);
+    color: white;
+    cursor: pointer;
+    padding: 5px 10px;
+}
