@@ -5,6 +5,7 @@ function PublicRoute({children}) {
     <div>
         {children}
     </div>
+    
   )
 }
 
