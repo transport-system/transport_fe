@@ -15,14 +15,10 @@ function Profile() {
   const showModal = () => {
     setIsModalOpen(true);
   };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
   const handleCancel = () => {
     setIsModalOpen(false);
   };
+
   return (
     <div>
       <div className="container mt-5">
@@ -61,7 +57,6 @@ function Profile() {
           {isModalOpen && (
       <ProfileForm
         isModalOpen={isModalOpen}
-        handleOk={handleOk}
         handleCancel={handleCancel}
       />
     )}

@@ -38,7 +38,7 @@ function Defaultlayout({ children }) {
   const userSidebar = [{name:"Profile Info",path:"/user/profile"},{name:"Booked Detail",path:"/user/booked"}]
   const agencySidebar = [{name:"Add Vehicle"}]
   //role nav
-  const menuToRender = user.gender == "female" ? agencyMenu : userMenu;
+  const menuToRender = user.gender == "user" ? agencyMenu : userMenu;
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">

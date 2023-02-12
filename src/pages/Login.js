@@ -15,7 +15,8 @@ function Login() {
 
   const handleSubmit = async (values) => {
     try{
-      const response = await axios.post("https://dummyjson.com/auth/login",values);
+      const response = await axios.post("http://localhost:8088/api/auth/login",values);
+      console.log(values)
       if(response.data.id){
         message.success("Login Success")
         localStorage.setItem("token", response.data.token);
@@ -26,6 +27,8 @@ function Login() {
       }
     }catch(err){
       message.error(err.message)
+      console.log(values)
+
     }
 
 
@@ -68,7 +71,7 @@ function Login() {
         />
       </Form.Item>
       <Form.Item>
-        <Form.Item name="remember" valuePropName="checked" noStyle>
+        <Form.Item  valuePropName="checked" noStyle>
           <Checkbox>Remember me</Checkbox>
         </Form.Item>
 

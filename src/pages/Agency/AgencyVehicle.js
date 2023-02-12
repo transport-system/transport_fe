@@ -22,7 +22,21 @@ function AgencyVehicle() {
       message.error(err.message); 
     }
   };
+  const handleOk = async (values) => {
+    try {
+      // dispatch(showLoading());
+      const response = await tripApi.getAllTrip(values);
+      console.log(response);
 
+      if (response.data) {
+        dispatch(setTrips(response.data.data));
+      } else {
+        message.error(response.data.message);
+      }
+    } catch (err) {
+      message.error(err.message); 
+    }
+  };
   const columns = [
     { title: "ID", dataIndex: "vehicle_id" },
     { title: "License", dataIndex: "license_plates" },
@@ -39,9 +53,9 @@ function AgencyVehicle() {
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
+  // const handleOk = () => {
+  //   setIsModalOpen(false);
+  // };
 
   const handleCancel = () => {
     setIsModalOpen(false);

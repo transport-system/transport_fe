@@ -1,4 +1,4 @@
-import { message, Table } from "antd";
+import { Button, message, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import TripForm from "../../Components/TripForm";
@@ -10,13 +10,13 @@ function AgencyTrip() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [trips, setTrips] = useState([]);
   const[loading,setLoading]=useState(true);
-
+  
   const getTrips = async () => {
     try {
       // dispatch(showLoading());
       const response = await tripApi.getAllTrip();
       console.log(response);
-
+      
       if (response.data) {
         setLoading(false)
         setTrips(response.data.products);
@@ -37,7 +37,16 @@ function AgencyTrip() {
     { title: "City arrival", dataIndex: "city_arrival" },
     { title: "City departure", dataIndex: "city_departure" },
     { title: "Refund time", dataIndex: "time_return" },
-    { title: "Status", dataIndex: "status" },
+    { title: "Status", dataIndex: "status" }, {
+      title: 'Action',
+      key: 'key',
+      dataIndex: 'key',
+      render: (text, record) => (
+       <Button onClick={()=> console.log(record)}>
+         {"Disable"}
+       </Button>
+      ),
+    },
   ];
   useEffect(() => {
     getTrips();

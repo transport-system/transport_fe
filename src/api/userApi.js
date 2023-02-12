@@ -7,8 +7,8 @@ const userApi ={
         return axiosClient.get(url);
 
     },
-    updateUser(data){
-        const url = `/api/users/${data.id}`
+    updateUser(id,data){
+        const url = `/users/${id}`
         return axiosClient.patch(url,data)
     },login(){
         const url = `auth/login`
