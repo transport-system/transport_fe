@@ -1,9 +1,9 @@
 import React from 'react'
-
+import Navbar from './Navbar'
 function PublicRoute({children}) {
   return (
     <div>
-        {children}
+        <Navbar/>{children}
     </div>
     
   )

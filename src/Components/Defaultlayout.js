@@ -7,19 +7,23 @@ function Defaultlayout({ children }) {
   const navigate = useNavigate();
   const userMenu = [  { name: "home", path: "/", icon: "fa-regular fa-house" },
   {
-    name: "profile",
+    name: "Profile",
     path: "/profile",
     icon: "fa-regular fa-car-side",
   },{
-    name: "booking",
+    name: "Booking",
     path: "/booking",
     icon: "fa-regular fa-car-side",
   }];
   const agencyMenu = [
-    { name: "home", path: "/agency", icon: "fa-regular fa-house" },
+    { name: "Home", path: "/agency", icon: "fa-regular fa-house" },
     {
-      name: "vehicle",
+      name: "Vehicle",
       path: "/agency/vehicle",
+      icon: "fa-regular fa-car-side",
+    },{
+      name: "Trip",
+      path: "/agency/trip",
       icon: "fa-regular fa-car-side",
     },{
       name: `Hello, ${user.firstName}`,
@@ -29,7 +33,8 @@ function Defaultlayout({ children }) {
   ];
   const userSidebar = [{name:"Profile Info",path:"/user/profile"},{name:"Booked Detail",path:"/user/booked"}]
   const agencySidebar = [{name:"Add Vehicle"}]
-  const menuToRender = agencyMenu;
+  //role nav
+  const menuToRender = user.gender == "female" ? agencyMenu : userMenu;
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -64,7 +69,16 @@ function Defaultlayout({ children }) {
               </div>  
           );
         })}
-            
+            <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Menu
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="/logout">Log out</a></li>
+            <li><a class="dropdown-item" href="#">manager</a></li>
+            <li><a class="dropdown-item" href="#">...</a></li>
+          </ul>
+        </div>
             </div>
                   </div>
         </div>

@@ -30,7 +30,7 @@ export default function ProfilePage() {
   useEffect(()=>{
       const fetchUser = async ()=>{
           const userInfo = await userApi.getUser(2);
-          console.log(userInfo.data.data)
+          console.log(userInfo.data)
           setEmail(userInfo.data.data.email)
           setName(userInfo.data.data.first_name)
           setId(userInfo.data.data.id)

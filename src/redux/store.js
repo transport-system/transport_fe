@@ -2,7 +2,7 @@ import { combineReducers,configureStore } from "@reduxjs/toolkit";
 import userSlice from "./userSlice";
 
 const rootReducer = combineReducers({
-    alerts:userSlice,
+    user:userSlice,
 })
 
 const store= configureStore({
