@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   MDBCol,
   MDBContainer,
@@ -6,51 +6,56 @@ import {
   MDBCard,
   MDBCardText,
   MDBCardBody,
-  MDBCardImage,
   MDBBtn,
   MDBBreadcrumb,
   MDBBreadcrumbItem,
-  MDBProgress,
-  MDBProgressBar,
-  MDBIcon,  
-  MDBListGroup,
-  MDBListGroupItem
-} from 'mdb-react-ui-kit';
-import { useState,useEffect } from 'react';
-import userApi from '../../api/userApi'
-
+} from "mdb-react-ui-kit";
+import { useState, useEffect } from "react";
+import userApi from "../../api/userApi";
+import { Link } from "react-router-dom";
+import { Select, DatePicker, Space } from "antd";
 
 export default function ProfilePage() {
+  const [email, setEmail] = useState();
+  const [name, setName] = useState();
+  const [id, setId] = useState();
+  const [ava, setAva] = useState();
+  const [phone, setPhone] = useState();
+  const [gender, setGender] = useState();
 
-  const[email,setEmail] = useState();
-  const[name,setName] = useState();
-  const[id,setId] = useState();
-  const[ava,setAva] = useState();
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userInfo = await userApi.getUser(2);
+      console.log(userInfo.data.data);
+      setEmail(userInfo.data.data.email);
+      setName(userInfo.data.data.first_name);
+      setId(userInfo.data.data.id);
+      setAva(userInfo.data.data.avatar);
+      setPhone(userInfo.data.data.phone);
+      setGender(userInfo.data.data.gender);
+    };
 
-  useEffect(()=>{
-      const fetchUser = async ()=>{
-          const userInfo = await userApi.getUser(2);
-          console.log(userInfo.data.data)
-          setEmail(userInfo.data.data.email)
-          setName(userInfo.data.data.first_name)
-          setId(userInfo.data.data.id)
-          setAva(userInfo.data.data.avatar)
+    fetchUser();
+  }, []);
 
-      }
-
-      fetchUser();
-      
-  },[])
-
+  const onChangeGender = (value) => {
+    console.log(`selected ${value}`);
+  };
+  const onSearch = (value) => {
+    console.log("search:", value);
+  };
+  const onChangeDate = (date, dateString) => {
+    console.log(date, dateString);
+  };
 
   return (
-    <section style={{ backgroundColor: '#eee' }}>
+    <section style={{ backgroundColor: "#eee" }}>
       <MDBContainer className="py-5">
         <MDBRow>
           <MDBCol>
             <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
               <MDBBreadcrumbItem>
-                <a href='#'>Home</a>
+                <a href="#">Home</a>
               </MDBBreadcrumbItem>
               <MDBBreadcrumbItem>
                 <a href="#">User</a>
@@ -61,60 +66,68 @@ export default function ProfilePage() {
         </MDBRow>
 
         <MDBRow>
-          <MDBCol lg="4">
-            <MDBCard className="mb-4">
-              <MDBCardBody className="text-center">
-                <MDBCardImage
-                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
-                  alt="avatar"
-                  className="rounded-circle"
-                  style={{ width: '150px' }}
-                  fluid />
-                <p className="text-muted mb-1">Full Stack Developer</p>
-                <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
-                <div className="d-flex justify-content-center mb-2">
-                  <MDBBtn>Follow</MDBBtn>
-                  <MDBBtn outline className="ms-1">Message</MDBBtn>
-                </div>
-              </MDBCardBody>
-            </MDBCard>
-
-            <MDBCard className="mb-4 mb-lg-0">
-              <MDBCardBody className="p-0">
-                <MDBListGroup flush className="rounded-3">
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fas icon="globe fa-lg text-warning" />
-                    <MDBCardText>https://mdbootstrap.com</MDBCardText>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="github fa-lg" style={{ color: '#333333' }} />
-                    <MDBCardText>mdbootstrap</MDBCardText>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="twitter fa-lg" style={{ color: '#55acee' }} />
-                    <MDBCardText>@mdbootstrap</MDBCardText>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="instagram fa-lg" style={{ color: '#ac2bac' }} />
-                    <MDBCardText>mdbootstrap</MDBCardText>
-                  </MDBListGroupItem>
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                    <MDBIcon fab icon="facebook fa-lg" style={{ color: '#3b5998' }} />
-                    <MDBCardText>mdbootstrap</MDBCardText>
-                  </MDBListGroupItem>
-                </MDBListGroup>
+          <MDBCol lg="3">
+            <MDBCard className="mb-3">
+              <MDBCardBody className="text-left">
+                <Link
+                  className="d-flex justify-content-left mb-2"
+                  to="/ProfilePage"
+                >
+                  User Profile
+                </Link>
+                <Link
+                  className="d-flex justify-content-left mb-2"
+                  to="/ProfilePage"
+                >
+                  My Ticket
+                </Link>{" "}
+                {/* change link */}
+                <Link
+                  className="d-flex justify-content-left mb-2"
+                  to="/ProfilePage"
+                >
+                  Change Password
+                </Link>
+                {/* change link */}
+                <Link
+                  className="d-flex justify-content-left mb-2"
+                  to="/ProfilePage"
+                >
+                  Log out
+                </Link>{" "}
+                {/* change link */}
               </MDBCardBody>
             </MDBCard>
           </MDBCol>
-          <MDBCol lg="8">
-            <MDBCard className="mb-4">
+
+          <MDBCol lg="9">
+            <MDBCard className="mb-5">
               <MDBCardBody>
-                <MDBRow>
+                {/* <MDBRow>
                   <MDBCol sm="3">
                     <MDBCardText>Full Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Johnatan Smith</MDBCardText>
+                    <MDBCardText className="text-muted">{name}</MDBCardText>
+                  </MDBCol> 
+                </MDBRow> */}
+                <MDBRow>
+                  <MDBCol sm="3">
+                    <MDBCardText>First and last name</MDBCardText>
+                  </MDBCol>
+                  <MDBCol sm="9">
+                    <div className="input-group">
+                      <input
+                        type="text"
+                        aria-label="First name"
+                        class="form-control"
+                      />
+                      <input
+                        type="text"
+                        aria-label="Last name"
+                        class="form-control"
+                      />
+                    </div>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -123,7 +136,7 @@ export default function ProfilePage() {
                     <MDBCardText>Email</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">example@example.com</MDBCardText>
+                    <input type="text" class="form-control" />
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -132,95 +145,62 @@ export default function ProfilePage() {
                     <MDBCardText>Phone</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(097) 234-5678</MDBCardText>
+                    <input type="text" value={phone} class="form-control" />
                   </MDBCol>
                 </MDBRow>
                 <hr />
                 <MDBRow>
                   <MDBCol sm="3">
-                    <MDBCardText>Mobile</MDBCardText>
+                    <MDBCardText>Date of birth</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(098) 765-4321</MDBCardText>
+                    {/* <MDBCardText className="text-muted">01-01-1990</MDBCardText> */}
+                    <Space direction="vertical">
+    <DatePicker onChange={onChangeDate} />
+
+  </Space>
                   </MDBCol>
                 </MDBRow>
                 <hr />
                 <MDBRow>
                   <MDBCol sm="3">
-                    <MDBCardText>Address</MDBCardText>
+                    <MDBCardText>Gender</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Bay Area, San Francisco, CA</MDBCardText>
+                    {/* <MDBCardText className="text-muted">{gender}</MDBCardText> */}
+                    <Select
+                      showSearch
+                      placeholder="Select a person"
+                      optionFilterProp="children"
+                      onChange={onChangeGender}
+                      onSearch={onSearch}
+                      filterOption={(input, option) =>
+                        (option?.label ?? "")
+                          .toLowerCase()
+                          .includes(input.toLowerCase())
+                      }
+                      options={[
+                        {
+                          value: "male",
+                          label: "Male",
+                        },
+                        {
+                          value: "female",
+                          label: "Female",
+                        },
+                        {
+                          value: "other",
+                          label: "Other",
+                        },
+                      ]}
+                    />
                   </MDBCol>
                 </MDBRow>
               </MDBCardBody>
             </MDBCard>
-
-            <MDBRow>
-              <MDBCol md="6">
-                <MDBCard className="mb-4 mb-md-0">
-                  <MDBCardBody>
-                    <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
-                    <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={80} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={72} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={89} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={55} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={66} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-                  </MDBCardBody>
-                </MDBCard>
-              </MDBCol>
-
-              <MDBCol md="6">
-                <MDBCard className="mb-4 mb-md-0">
-                  <MDBCardBody>
-                    <MDBCardText className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status</MDBCardText>
-                    <MDBCardText className="mb-1" style={{ fontSize: '.77rem' }}>Web Design</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={80} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={72} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>One Page</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={89} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={55} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-
-                    <MDBCardText className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Backend API</MDBCardText>
-                    <MDBProgress className="rounded">
-                      <MDBProgressBar width={66} valuemin={0} valuemax={100} />
-                    </MDBProgress>
-                  </MDBCardBody>
-                </MDBCard>
-              </MDBCol>
-            </MDBRow>
+            <div className="d-grid gap-2 col-6 mx-auto">
+              <MDBBtn>Update</MDBBtn>
+            </div>
           </MDBCol>
         </MDBRow>
       </MDBContainer>
