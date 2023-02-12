@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 function Defaultlayout({ children }) {
   const {user} = useSelector(state=>state.user)
   const navigate = useNavigate();
-  const userMenu = [  { name: "home", path: "/", icon: "fa-regular fa-house" },
+  const userMenu = [  { name: "Home", path: "/home", icon: "fa-regular fa-house" },
   {
     name: "Profile",
     path: "/profile",
@@ -13,6 +13,10 @@ function Defaultlayout({ children }) {
   },{
     name: "Booking",
     path: "/booking",
+    icon: "fa-regular fa-car-side",
+  },{
+    name: `Hello, ${user.firstName}`,
+    path: "/profile",
     icon: "fa-regular fa-car-side",
   }];
   const agencyMenu = [

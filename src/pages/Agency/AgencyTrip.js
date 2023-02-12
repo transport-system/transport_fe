@@ -29,10 +29,14 @@ function AgencyTrip() {
   };
     
   const columns = [
-    { title: "Type", dataIndex: "brand" },
-    { title: "From", dataIndex: "from" },
-    { title: "To", dataIndex: "to" },
-    { title: "Start Date", dataIndex: "date" },
+    { title: "ID", dataIndex: "id" },
+    { title: "Description", dataIndex: "description" },
+    { title: "Price", dataIndex: "price" },
+    { title: "Time Arrival", dataIndex: "time_arrival" },
+    { title: "Time Departure", dataIndex: "time_departure" },
+    { title: "City arrival", dataIndex: "city_arrival" },
+    { title: "City departure", dataIndex: "city_departure" },
+    { title: "Refund time", dataIndex: "time_return" },
     { title: "Status", dataIndex: "status" },
   ];
   useEffect(() => {
@@ -55,7 +59,7 @@ function AgencyTrip() {
   return (
     <div>
       <div className="container d-flex justify-content-between mt-5">
-        <div></div>
+        <h4>Trip Management</h4>
         <button className="btn btn-primary" onClick={showModal}>
           Add Trip
         </button>

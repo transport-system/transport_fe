@@ -37,10 +37,10 @@ const Navbar = () => {
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <div>
-              <span className="nav-link">Home</span>
+              <span className="nav-link" onClick={()=>navigate("/")}>Home</span>
             </div>
             <div>
-              <span className="nav-link" onClick={navigate("/login")}>Login</span>
+              <span className="nav-link" onClick={()=>navigate("/login")}>Login</span>
             </div>
             <div class="nav-item dropdown">
               <a
@@ -58,8 +58,8 @@ const Navbar = () => {
                 aria-labelledby="navbarDropdownMenuLink"
               >
                 <li>
-                  <a class="dropdown-item" href="/logout">
-                    Log out
+                  <a class="dropdown-item" href="/Register">
+                     Register
                   </a>
                 </li>
                 <li>

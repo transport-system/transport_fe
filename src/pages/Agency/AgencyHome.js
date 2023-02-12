@@ -2,7 +2,7 @@ import React from 'react'
 
 function AgencyHome() {
   return (
-    <div>AgencyHome</div>
+    <h2 className='mt-3'>Dashboard For Company here!</h2>
   )
 }
 

@@ -43,7 +43,7 @@ function Profile() {
             <Descriptions.Item label="Name ">
               {user.firstName + " " + user.lastName}
             </Descriptions.Item>
-            <Descriptions.Item label="Address" span={2}>
+            <Descriptions.Item label="Address" >
               123 La Xuan Oai, Quan 9, TP.Thu Duc
             </Descriptions.Item>
             <Descriptions.Item label="Email ">{user.email}</Descriptions.Item>

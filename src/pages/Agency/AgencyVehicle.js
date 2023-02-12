@@ -24,11 +24,12 @@ function AgencyVehicle() {
   };
 
   const columns = [
-    { title: "Type", dataIndex: "type" },
-    { title: "Total Seat", dataIndex: "from" },
-    { title: "To", dataIndex: "to" },
-    { title: "Start Date", dataIndex: "date" },
+    { title: "ID", dataIndex: "vehicle_id" },
+    { title: "License", dataIndex: "license_plates" },
+    { title: "Type", dataIndex: "vehicle_type_name" },
+    { title: "Total seat", dataIndex: "total_seat" },
     { title: "Status", dataIndex: "status" },
+    { title: "Action", dataIndex: "status" },
   ];
   useEffect(() => {
     getTrips();
@@ -48,7 +49,7 @@ function AgencyVehicle() {
   return (
     <div>
     <div className="container d-flex justify-content-between mt-5">
-      <div></div>
+      <h4>Vehicle Management</h4>
       <button className="btn btn-primary" onClick={showModal}>
         Add Vehicle
       </button>
