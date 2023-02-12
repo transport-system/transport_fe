@@ -1,8 +1,16 @@
 import React from 'react'
+import CarouselHome from '../Components/Carousel'
+import Search from '../Components/Search'
 
 function HomeAuth() {
   return (
-    <div>HomeAuth</div>
+    <div>
+      <CarouselHome/>
+      HomeAuth 
+      <Search/>
+      
+      </div>
+     
   )
 }
 
