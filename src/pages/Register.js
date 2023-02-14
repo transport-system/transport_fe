@@ -54,14 +54,15 @@ function Register() {
   const onFinish  = async (values) => {
     try{      console.log(values)
 
-      const response = await axios.post("https://dummyjson.com/auth/register",values);
-      if(response.data.id){
-        message.success("Login Success")
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("userID",JSON.stringify(response.data.id))
+      const res = await axios.post("http://localhost:8088/api/auth/register",values);
+   
+      if(res.data.data.id){
+        message.success("Regis Success")
+        localStorage.setItem("userID",JSON.stringify(res.data.data.id))
+        console.log(res.data.data.id)
         navigate("/home")
       }else{
-        message.error("Login Fail!")
+        message.error("Regis Fail!")
       }
     }catch(err){
       message.error(err.message)
@@ -131,7 +132,7 @@ function Register() {
       </Form.Item>
 
       <Form.Item
-        name="confirm"
+        name="confirmPassword"
         label="Confirm "
         dependencies={['password']}
         hasFeedback
@@ -153,7 +154,7 @@ function Register() {
         <Input.Password />
       </Form.Item>
       <Form.Item
-        name="firstName"
+        name="firstname"
         label="FirstName"
         rules={[
           {
@@ -237,8 +238,7 @@ function Register() {
         </Row>
       </Form.Item> */}
 
-      <Form.Item
-        name="agreement"
+      {/* <Form.Item
         valuePropName="checked"
         rules={[
           {
@@ -251,7 +251,7 @@ function Register() {
         <Checkbox>
           I have read the <a href="">agreement</a>
         </Checkbox>
-      </Form.Item>
+      </Form.Item> */}
       <Form.Item {...tailFormItemLayout}>
         <Button type="primary" htmlType="submit">
           Register

@@ -37,7 +37,7 @@ function Profile() {
               {user.phone}
             </Descriptions.Item>
             <Descriptions.Item label="Name ">
-              {user.firstName + " " + user.lastName}
+              {user.firstname + " " + user.lastname}
             </Descriptions.Item>
             <Descriptions.Item label="Address" >
               123 La Xuan Oai, Quan 9, TP.Thu Duc

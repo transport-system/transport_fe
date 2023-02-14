@@ -8,14 +8,17 @@ import Defaultlayout from './Defaultlayout'
 function ProtectedRoute({children}) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // const {user}= useSelector(state => state.user);
+    const {user}= useSelector(state => state.user);
     const[loading,setLoading]=useState(true);
     const validateToken=async ()=>{
         try{            
             const response = await userApi.getUser(localStorage.getItem("userID"))
-            if(response.data.username){
+            console.log(response)
+
+            if(true){
               setLoading(false)
-              dispatch(SetUser(response.data))   
+              dispatch(SetUser(response.data.data)) 
+              console.log(response)
             }else{
               setLoading(false)
                 localStorage.clear();
@@ -31,13 +34,13 @@ function ProtectedRoute({children}) {
     }
     
     useEffect(()=>{
-        if(localStorage.getItem('token')){
+        if(localStorage.getItem('userID')){
             validateToken();
 
         }else{
             navigate('/login')
         }
-    })
+    },[])
   return (
     <div>
       { !loading && <Defaultlayout>{children}</Defaultlayout>}

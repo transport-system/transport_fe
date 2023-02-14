@@ -3,6 +3,8 @@ import "../resourses/global.css";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+
 import axios from "axios";
 
 function Login() {
@@ -12,23 +14,32 @@ function Login() {
   //   password: "",
   // });
   // console.log(values);      .post("https://dummyjson.com/auth/login", {
+    const {user}= useSelector(state => state.user);
+
 
   const handleSubmit = async (values) => {
     try{
       const response = await axios.post("http://localhost:8088/api/auth/login",values);
       console.log(values)
-      if(response.data.id){
-        message.success("Login Success")
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("userID",JSON.stringify(response.data.id))
-        navigate("/home")
+      if(response.data.data.id){
+        message.success(response.data.message)
+        // localStorage.setItem("token",response.data.token);
+        localStorage.setItem("userID",JSON.stringify(response.data.data.id))
+        console.log(response.data.data.id)
+        response.data.data.role=="US" ?   navigate("/home") : navigate("/agency")
+
+        // if(localStorage.getItem("role")=="COM")
+        //   navigate("/agency")
+        // else if(localStorage.getItem("role")=="US"){
+        //   navigate("/home")
+        // }
       }else{
         message.error("Login Fail!")
+        console.log(response)
       }
     }catch(err){
       message.error(err.message)
       console.log(values)
-
     }
 
 

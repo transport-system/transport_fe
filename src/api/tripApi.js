@@ -1,8 +1,8 @@
 import axiosClient from "./axiosClient";
 const tripApi ={
     
-    getAllTrip(){
-        const url = `/products`
+    getAllTrip(id){
+        const url = `/api/company/${id}`
         return axiosClient.get(url);
     },
  

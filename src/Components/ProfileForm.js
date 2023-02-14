@@ -24,7 +24,7 @@ function ProfileForm({ isModalOpen, handleCancel }) {
     try {
       const response = await userApi.updateUser(user.id,values);
       console.log(values)
-      if (response.data.id) {
+      if (response.data.data.id) {
         window.location.reload(false);
 
 
@@ -62,16 +62,16 @@ function ProfileForm({ isModalOpen, handleCancel }) {
           <Checkbox>Checkbox</Checkbox>
         </Form.Item> */}
 
-          <Form.Item label="First Name" name="firstName">
+          <Form.Item label="First Name" name="firstname">
             <Input />
           </Form.Item>
-          <Form.Item label="Last Name" name="lastName">
+          <Form.Item label="Last Name" name="lastname">
             <Input />
           </Form.Item>
           <Form.Item label="Gender" name="gender">
             <Radio.Group>
-              <Radio value="apple"> Male </Radio>
-              <Radio value="pear"> FeMale </Radio>
+              <Radio value="Male"> Male </Radio>
+              <Radio value="FeMale"> FeMale </Radio>
             </Radio.Group>
           </Form.Item>
           <Form.Item label="Phone " name="phone">

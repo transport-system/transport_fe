@@ -3,12 +3,12 @@ import axiosClient from "./axiosClient";
 const userApi ={
     
     getUser(id){
-        const url = `/users/${id}`
+        const url = `/api/accounts/${id}`
         return axiosClient.get(url);
 
     },
     updateUser(id,data){
-        const url = `/users/${id}`
+        const url = `/api/accounts/${id}`
         return axiosClient.patch(url,data)
     },login(){
         const url = `auth/login`

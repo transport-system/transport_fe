@@ -17,7 +17,7 @@ function AgencyTrip() {
       const response = await tripApi.getAllTrip();
       console.log(response);
       
-      if (response.data) {
+      if (response.data.data) {
         setLoading(false)
         setTrips(response.data.products);
       } else {

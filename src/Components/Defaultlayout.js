@@ -15,7 +15,7 @@ function Defaultlayout({ children }) {
     path: "/booking",
     icon: "fa-regular fa-car-side",
   },{
-    name: `Hello, ${user.firstName}`,
+    name: `Hello, ${user.firstname}`,
     path: "/profile",
     icon: "fa-regular fa-car-side",
   }];
@@ -30,7 +30,7 @@ function Defaultlayout({ children }) {
       path: "/agency/trip",
       icon: "fa-regular fa-car-side",
     },{
-      name: `Hello, ${user.firstName}`,
+      name: `Hello, ${user.firstname}`,
       path: "/profile",
       icon: "fa-regular fa-car-side",
     }
@@ -38,7 +38,7 @@ function Defaultlayout({ children }) {
   const userSidebar = [{name:"Profile Info",path:"/user/profile"},{name:"Booked Detail",path:"/user/booked"}]
   const agencySidebar = [{name:"Add Vehicle"}]
   //role nav
-  const menuToRender = user.gender == "user" ? agencyMenu : userMenu;
+  const menuToRender = user.role == "US" ? userMenu : agencyMenu;
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
