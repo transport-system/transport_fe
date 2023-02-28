@@ -1,52 +1,59 @@
 import React, { useEffect, useState } from "react";
 import "../resourses/global.css";
 import { Link, Navigate, useNavigate } from "react-router-dom";
-import { Form, Input, Button, Checkbox, message } from 'antd';
+import {Modal, Form, Input, Button, Checkbox, message } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 
 import axios from "axios";
+import userApi from "../api/userApi";
+import {HideLoading, ShowLoading} from "../redux/alertsSlice";
 
-function Login() {
+function Login({isModalOpen,handleOk,handleCancel}) {
   const navigate = useNavigate();
   // const [values, setValues] = useState({
   //   username: "",
   //   password: "",
   // });
-  // console.log(values);      .post("https://dummyjson.com/auth/login", {
+
     const {user}= useSelector(state => state.user);
+  const dispatch = useDispatch();
 
 
   const handleSubmit = async (values) => {
     try{
-      const response = await axios.post("http://localhost:8088/api/auth/login",values);
+      dispatch(ShowLoading())
+      // const response = await userApi.checkLogin(values)
+      const response = await axios.post("https://transport-springboot.herokuapp.com/api/auth/login",values)
       console.log(values)
-      if(response.data.data.id){
-        message.success(response.data.message)
+      dispatch(HideLoading())
+      if(response.data){
+        message.success("Login thành công")
         // localStorage.setItem("token",response.data.token);
-        localStorage.setItem("userID",JSON.stringify(response.data.data.id))
-        console.log(response.data.data.id)
-        response.data.data.role=="US" ?   navigate("/home") : navigate("/agency")
+        localStorage.setItem("userID",JSON.stringify(response.data.data.username))
+                localStorage.setItem("token",JSON.stringify(response.data.data.token))
 
-        // if(localStorage.getItem("role")=="COM")
-        //   navigate("/agency")
-        // else if(localStorage.getItem("role")=="US"){
-        //   navigate("/home")
-        // }
+        window.location.reload(false);
+
+        console.log(response.data.data.id)
+
+
+
       }else{
         message.error("Login Fail!")
         console.log(response)
       }
     }catch(err){
-      message.error(err.message)
+      message.error(err.message + "Login Fail!")
       console.log(values)
     }
 
 
   };
   return (
-    <div className="h-screen d-flex justify-content-center align-items-center">
-      <div className="w-500 card p-5">
+      <Modal   footer={null} className="d-flex justify-content-center align-items-center" width={600} title="Login" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+
+      <div className="w-500  p-5">
           <Form
       name="normal_login"
       className="login-form"
@@ -99,7 +106,7 @@ function Login() {
       </Form.Item>
     </Form>
       </div>
-    </div>
+        </Modal>
   );
 }
 
