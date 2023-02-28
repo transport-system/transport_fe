@@ -1,99 +1,30 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from 'react-redux'
+import React  from 'react';
 
-function Defaultlayout({ children }) {
-  const {user} = useSelector(state=>state.user)
-  const navigate = useNavigate();
-  const userMenu = [  { name: "Home", path: "/home", icon: "fa-regular fa-house" },
-  {
-    name: "Profile",
-    path: "/profile",
-    icon: "fa-regular fa-car-side",
-  },{
-    name: "Booking",
-    path: "/booking",
-    icon: "fa-regular fa-car-side",
-  },{
-    name: `Hello, ${user.firstname}`,
-    path: "/profile",
-    icon: "fa-regular fa-car-side",
-  }];
-  const agencyMenu = [
-    { name: "Home", path: "/agency", icon: "fa-regular fa-house" },
-    {
-      name: "Vehicle",
-      path: "/agency/vehicle",
-      icon: "fa-regular fa-car-side",
-    },{
-      name: "Trip",
-      path: "/agency/trip",
-      icon: "fa-regular fa-car-side",
-    },{
-      name: `Hello, ${user.firstname}`,
-      path: "/profile",
-      icon: "fa-regular fa-car-side",
-    }
-  ];
-  const userSidebar = [{name:"Profile Info",path:"/user/profile"},{name:"Booked Detail",path:"/user/booked"}]
-  const agencySidebar = [{name:"Add Vehicle"}]
-  //role nav
-  const menuToRender = user.role == "US" ? userMenu : agencyMenu;
-  return (
-    <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-                  <a class="navbar-brand" href="#">
-                    SWP391
-                  </a>
-                  <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNavAltMarkup"
-                    aria-controls="navbarNavAltMarkup"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                  >
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-        {menuToRender.map((item, index) => {
-          return (
-            <div>
-                    <span className="nav-link"
-                onClick={() => {
-                  navigate(item.path);
-                }}
-              >
-                {item.name}
-              </span>
+import { useState } from 'react';
+import {useSelector} from "react-redux";
+import {Link, useNavigate} from "react-router-dom";
+import Navbar from "./globalNav/Navbar";
+import Home from "./Home/Home";
+import Footer from "./Footer/Footer";
 
-              </div>  
-          );
-        })}
-            <div class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Menu
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" href="/logout">Log out</a></li>
-            <li><a class="dropdown-item" href="#">manager</a></li>
-            <li><a class="dropdown-item" href="#">...</a></li>
-          </ul>
-        </div>
-            </div>
-                  </div>
-        </div>
-      </nav>
-       <div className="sidebar">
+function DefaultLayout ({children}) {
+    const {user}= useSelector(state => state.user);
 
-      </div>      
 
-      <div className="content">{children}</div>
-    </div>
-  );
-}
 
-export default Defaultlayout;
+    return (
+<div>
+    <video autoPlay loop muted >
+        <source type="video/mp4" src="assets/fbus.mp4"/>
+            <source type="video/webm" src="https://player.vimeo.com/video/364964523?title=0&portrait=0&byline=0&autoplay=1&muted=true"/>
+    </video>
+    <Navbar/>
+    {/* <Home/> */}
+    <div>{children}</div>
+    <Footer/>
+</div>
+
+
+    );
+};
+export default DefaultLayout;

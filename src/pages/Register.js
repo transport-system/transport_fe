@@ -54,7 +54,7 @@ function Register() {
   const onFinish  = async (values) => {
     try{      console.log(values)
 
-      const res = await axios.post("http://localhost:8088/api/auth/register",values);
+      const res = await axios.post("https://transport-springboot.herokuapp.com/api/auth/register",values);
    
       if(res.data.data.id){
         message.success("Regis Success")

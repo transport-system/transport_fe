@@ -24,14 +24,14 @@ function ProfileForm({ isModalOpen, handleCancel }) {
     try {
       const response = await userApi.updateUser(user.id,values);
       console.log(values)
-      if (response.data.data.id) {
+      if (response.data.data) {
+        navigate("/profile")
         window.location.reload(false);
 
-
-      } else {        navigate("/profile")
+      } else {        navigate("/profile#")
 
       }
-    } catch (err) {        navigate("/profile")
+    } catch (err) {        navigate("/profile#")
   }
   };
 

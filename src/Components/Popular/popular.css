@@ -182,14 +182,17 @@
   .popular {
     padding-top: 10rem;
   }
+
   .popular .secContainter .secHeader .textDiv .secTitle {
     font-size: 2.2rem;
   }
+
   .popular .secContainter .secHeader .textDiv p {
     font-size: 15px;
   }
+
   .popular .secContainter .mainContent {
     grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem !important;
   }
-}/*# sourceMappingURL=popular.css.map */
+}

@@ -5,7 +5,7 @@ import {BsArrowLeftShort} from 'react-icons/bs'
 import {BsDot} from 'react-icons/bs'
 
 // Images ======================>
-import img2 from '../../Assets/image (2).jpg'
+import img2 from '../../Assets/image (2).png'
 import img5 from '../../Assets/image (5).jpg'
 import img9 from '../../Assets/image (5).png'
 import img7 from '../../Assets/image (7).jpg'
@@ -23,7 +23,7 @@ const Data = [
   id:1,
   imgSrc: img2,
   destTitle: 'Machu Picchu',
-  location: 'Peru',
+  location: 'Đà Lạt',
   grade: 'CULTURAL RELAX ',
   },
 
@@ -31,7 +31,7 @@ const Data = [
   id:2,
   imgSrc: img5,
   destTitle: 'Guanajuato',
-  location: 'Mexico',
+  location: 'Cần Thơ',
   grade: 'CULTURAL RELAX ',
   },
 
@@ -39,7 +39,7 @@ const Data = [
   id:3,
   imgSrc: img7,
   destTitle: 'Angkor Wat',
-  location: 'Cambodia',
+  location: 'Vũng Tàu',
   grade: 'CULTURAL RELAX ',  
   },
 
@@ -48,7 +48,7 @@ const Data = [
   id:4,
   imgSrc: img9,
   destTitle: 'Taj Mahal',
-  location: 'India',
+  location: 'Đồng Nai',
   grade: 'CULTURAL RELAX ',
   }
 

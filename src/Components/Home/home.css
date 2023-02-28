@@ -13,7 +13,8 @@
 
 .home {
   height: 70vh;
-  background: linear-gradient(rgba(33, 33, 33, 0.552), rgba(33, 33, 33, 0.552)), url("../../Assets/bgImage.jpg");
+  background: linear-gradient(rgba(33, 33, 33, 0.552), rgba(33, 33, 33, 0.552));
+  /*, url("../../Assets/bgImage.jpg");*/
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

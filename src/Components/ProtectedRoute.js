@@ -5,47 +5,47 @@ import {  useNavigate } from 'react-router-dom'
 import { SetUser } from '../redux/userSlice';
 import userApi from '../api/userApi'
 import Defaultlayout from './Defaultlayout'
+import UserLayout from "./UserLayout";
+import {HideLoading, ShowLoading} from "../redux/alertsSlice";
 function ProtectedRoute({children}) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const {user}= useSelector(state => state.user);
+    // const {user}= useSelector(state => state.user);
     const[loading,setLoading]=useState(true);
     const validateToken=async ()=>{
-        try{            
-            const response = await userApi.getUser(localStorage.getItem("userID"))
-            console.log(response)
+        try{
+            dispatch(ShowLoading());
+            console.log(2)
 
-            if(true){
-              setLoading(false)
-              dispatch(SetUser(response.data.data)) 
-              console.log(response)
+            const response = await userApi.getUser(localStorage.getItem("userID"),
+            {headers:{Authorization: `Bearer {${localStorage.getItem("token")}}`}}
+            )
+
+            console.log(response)
+            dispatch(HideLoading());
+            if(response.data.data.id){
+                dispatch(SetUser(response.data.data))
+                console.log(response)
             }else{
-              setLoading(false)
                 localStorage.clear();
-                navigate('/login')
 
             }
         }catch(error){
-          setLoading(false)
 
-          localStorage.clear();
-            navigate('/login')
+            localStorage.clear();
         }
     }
-    
+
     useEffect(()=>{
-        if(localStorage.getItem('userID')){
             validateToken();
 
-        }else{
-            navigate('/login')
-        }
+
     },[])
-  return (
-    <div>
-      { !loading && <Defaultlayout>{children}</Defaultlayout>}
-    </div>
-  )
+    return (
+        <div>
+           <UserLayout>{children}</UserLayout>
+        </div>
+    )
 }
 
 export default ProtectedRoute
