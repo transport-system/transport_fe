@@ -1,6 +1,6 @@
 import axios from 'axios';
 const axiosClient = axios.create({
-    baseURL:'https://reqres.in/',
+    baseURL:'https://transport-springboot.herokuapp.com'
 
 })
 export default axiosClient;

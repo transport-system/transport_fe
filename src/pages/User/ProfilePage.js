@@ -35,8 +35,25 @@ export default function ProfilePage() {
       setGender(userInfo.data.data.gender);
     };
 
+<<<<<<< HEAD
     fetchUser();
   }, []);
+=======
+  useEffect(()=>{
+      const fetchUser = async ()=>{
+          const userInfo = await userApi.getUser(2);
+          console.log(userInfo.data)
+          setEmail(userInfo.data.data.email)
+          setName(userInfo.data.data.first_name)
+          setId(userInfo.data.data.id)
+          setAva(userInfo.data.data.avatar)
+
+      }
+
+      fetchUser();
+      
+  },[])
+>>>>>>> a621de36606fce441813589cfea19f493fdd8591
 
   const onChangeGender = (value) => {
     console.log(`selected ${value}`);
