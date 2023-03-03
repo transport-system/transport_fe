@@ -28,10 +28,11 @@ function Login({isModalOpen,handleOk,handleCancel}) {
       console.log(values)
       dispatch(HideLoading())
       if(response.data){
+        
         message.success("Login thành công")
         // localStorage.setItem("token",response.data.token);
-        localStorage.setItem("userID",JSON.stringify(response.data.data.username))
-                localStorage.setItem("token",JSON.stringify(response.data.data.token))
+        localStorage.setItem("userID",JSON.stringify(response.data.data.id))
+                localStorage.setItem("token",response.data.data.token)
 
         window.location.reload(false);
 
