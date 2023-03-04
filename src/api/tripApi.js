@@ -3,7 +3,7 @@ const tripApi ={
     
     getAllTrip(){
         const url = `/api/trip/all`
-        return axiosClient.get(url,{}, { headers: {Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjb21wYW55IiwiaWF0IjoxNjc3NTY0MTcxLCJleHAiOjE2Nzc1NjUwNzF9.FofFBZaETM9GShmqjvOdgs76c6Fv1Vm7NO1NwNaJR4E`}  });
+        return axiosClient.get(url);
     },getAllVehicle(){
         const url = `/api/vehicle/getAll`
         return axiosClient.get(url);        

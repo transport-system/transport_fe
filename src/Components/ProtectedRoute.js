@@ -17,13 +17,11 @@ function ProtectedRoute({children}) {
             dispatch(ShowLoading());
             console.log(2)
 
-            const response = await userApi.getUser(localStorage.getItem("userID"),
-            {headers:{Authorization: `Bearer {${localStorage.getItem("token")}}`}}
-            )
+            const response = await userApi.getUser(localStorage.getItem('userId'))
 
             console.log(response)
             dispatch(HideLoading());
-            if(response.data.data.id){
+            if(true){
                 dispatch(SetUser(response.data.data))
                 console.log(response)
             }else{

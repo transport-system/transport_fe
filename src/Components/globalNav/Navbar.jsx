@@ -56,7 +56,7 @@ const Navbar = () => {
                 <a href="/" className="navLink">Home</a>
               </li>
               <li className="navItem">
-                <a href="#" className="navLink">Products</a>
+                <a href="http://localhost:3001/login" className="navLink">Manager</a>
               </li>
               <li className="navItem">
                 <a href="#" className="navLink">Contact </a>

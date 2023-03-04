@@ -1,9 +1,9 @@
 import axiosClient from "./axiosClient";
 
 const userApi = {
-  getUser(id,token) {
-    const url = `/api/accounts/${localStorage.getItem("userId")}`;
-    return axiosClient.get(url,{},{token});
+  getUser(id) {
+    const url = `/api/accounts/${id}`;
+    return axiosClient.get(url);
   },
   updateUser(id, data) {
     const url = `/api/accounts/${id}`;

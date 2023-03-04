@@ -13,7 +13,7 @@ function Booking({tripSearch}){
         try {
             dispatch(ShowLoading());
                 console.log(1)
-            const response = await tripApi.getAllTrip();
+            const response = await tripApi.getAllTrip({Headers:{Authorization: `Bearer ${localStorage.getItem("token")}`}});
             dispatch(HideLoading());
             console.log(response.data.list_trip);
 
