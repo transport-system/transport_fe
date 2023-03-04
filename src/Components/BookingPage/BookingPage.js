@@ -3,12 +3,16 @@ import {useDispatch} from "react-redux";
 import {HideLoading, ShowLoading} from "../../redux/alertsSlice";
 import tripApi from "../../api/tripApi";
 import {Col, message, Row} from "antd";
-import {useParams} from "react-router-dom";
-
+import {useParams} from "react-router-dom"; 
+import SeatSelection from '../SeatSelection';
+ 
 function BookingPage(){
     const params =useParams();
     const dispatch = useDispatch();
     const [Trip, setTrip] = useState([]);
+    const [Seats, setSeats] = useState([]);
+
+    const [selectedSeats,setSelectedSeats] =useState([]);
 
     const getTrip = async () => {
         try {
@@ -29,8 +33,28 @@ function BookingPage(){
 
         }
     };
+    const getSeatById = async () => {
+        try {
+            dispatch(ShowLoading());
+            const response = await tripApi.getSeatById(params.id);
+            dispatch(HideLoading());
+            console.log(response.data);
+
+            if (response.data) {
+                setSeats(response.data.data);
+
+            } else {
+                message.error(response.data.message);
+
+            }
+        } catch (err) {
+            message.error(err.message);
+
+        }
+    };
     useEffect(() => {
         getTrip();
+        getSeatById()
     },[]);
     const timeArrivalOld    = Trip.timeArrival;
     const timeDepartureOld    = Trip.timeDeparture;
@@ -55,8 +79,8 @@ function BookingPage(){
     );
     return (
         <div className="container">
-            <Row>
-                <Col lg={12} xs={24} sm={24} className="card m-5 p-5">
+            <Row className="card m-5 p-5">
+                <Col lg={12} xs={12} sm={12} >
                     <img className="card-img" src="../assets/banner_img.jpeg"  />
 
                     <div className="card-body">
@@ -66,9 +90,10 @@ function BookingPage(){
                         <div>Quantity: {Trip.seatQuantity}</div>
                     </div>
 
-
                 </Col>
-                <Col lg={12} xs={24} sm={24}>
+                <Col lg={12} xs={12} sm={12}>
+                <SeatSelection selectedSeats={selectedSeats} setSelectedSeats={setSelectedSeats} Trip={Trip} Seat={Seats}/>
+
                 </Col>
             </Row>
         </div>
