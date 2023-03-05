@@ -5,7 +5,7 @@ import tripApi from "../../api/tripApi";
 import {Col, message, Row} from "antd";
 import {useParams} from "react-router-dom"; 
 import SeatSelection from '../SeatSelection';
- 
+ import "./bookingPage.css"
 function BookingPage(){
     const params =useParams();
     const dispatch = useDispatch();
@@ -79,19 +79,21 @@ function BookingPage(){
     );
     return (
         <div className="container">
-            <Row className="card m-5 p-5">
-                <Col lg={12} xs={12} sm={12} >
+            <Row className=" m-5 p-5">
+                <Col lg={12} xs={12} sm={12} className="card">
                     <img className="card-img" src="../assets/banner_img.jpeg"  />
 
-                    <div className="card-body">
+                    <div className="card-body ">
                         <h1 className="card-title">TripID: {Trip.id}</h1>
 
                         <div>Time: {timeDeparture} -  {timeArrival}</div>
                         <div>Quantity: {Trip.seatQuantity}</div>
+                        <h4>Ghế đã chọn: {selectedSeats.join(", ")}</h4>
+                    <h3>Total: {Trip.price*selectedSeats.length}</h3>
                     </div>
-
+                    
                 </Col>
-                <Col lg={12} xs={12} sm={12}>
+                <Col lg={12} xs={12} sm={12} className='align-items-center'>
                 <SeatSelection selectedSeats={selectedSeats} setSelectedSeats={setSelectedSeats} Trip={Trip} Seat={Seats}/>
 
                 </Col>

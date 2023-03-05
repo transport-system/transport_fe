@@ -19,7 +19,7 @@ function DefaultLayout ({children}) {
             <source type="video/webm" src="https://player.vimeo.com/video/364964523?title=0&portrait=0&byline=0&autoplay=1&muted=true"/>
     </video> */}
     <Navbar/>
-    {/* <Home/> */}
+    <Home/>
     <div>{children}</div>
     <Footer/>
 </div>

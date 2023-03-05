@@ -32,7 +32,7 @@ function App() {
 
           <Route path="/logout" element={<PublicRoute><Logout/></PublicRoute>}/>
 
-        <Route path='/userProfile' element={<ProfilePage/>}/>
+        {/* <Route path='/userProfile' element={<ProfilePage/>}/> */}
 
         {/* <Route path="/setting" element={<Setting/>}/> */}
 

@@ -9,7 +9,7 @@ function HomePage() {
     return (
     
     <div>
-        <Home/>
+        {/* <Home/> */}
         <Popular/>
     </div>
   )

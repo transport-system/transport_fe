@@ -4,20 +4,32 @@ import React from 'react'
 export default function SeatSelection({selectedSeats,setSelectedSeats,Trip,Seat}) {
     const capacity = Trip.seatQuantity;
     // seatClass= "gray";
+    const selectOrUnselectSeats=(seatNumber)=>{
+        console.log(seatNumber)
+        if(selectedSeats.includes(seatNumber)){
+            setSelectedSeats(selectedSeats.filter((seat)=>seat!==seatNumber))
+        }else{
+            setSelectedSeats([...selectedSeats,seatNumber])
+        }
+    }
 
   return (
     <div>
         <div className='bus-container'>
-            <Row> 
+            <Row gutter={[10,10]}> 
                
                 {Seat.map(Seat=>{
-                        const [seatClass,setSeatClass] =["grey"];
-                    // {Seat.status === "ACTIVE" ?  setSeatClass="green" : setSeatClass="red"}
+                        // const [seatClass,setSeatClass] =["grey"];
+                    // {Seat.status === "ACTIVE" ?  setSeatClass="" : setSeatClass="red"}
+                    let seatClass =''
+                    if(selectedSeats.includes(Seat.seatNumber)){
+                        seatClass = 'selected-seat'
+                    }
                     return(
 
-                        <Col span={5}>
+                        <Col span={6}>
 
-                        <div className={`${Seat.status}`}>
+                        <div className={`seat ${Seat.status} ${seatClass}`} onClick={()=>{selectOrUnselectSeats(Seat.seatNumber)}}>
             
                             {Seat.seatNumber}
                         </div>
