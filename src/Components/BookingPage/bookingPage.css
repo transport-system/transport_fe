@@ -12,6 +12,10 @@
     width: 300px!important;
     border: 2px solid gray;
     padding: 10px;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+
 }
 .seat{
     /* width: 30px;

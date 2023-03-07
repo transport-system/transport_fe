@@ -22,7 +22,7 @@ function BookingPage(){
             console.log(response.data);
 
             if (response.data) {
-                setTrip(response.data);
+                dispatch(setTrip(response.data));
 
             } else {
                 message.error(response.data.message);
@@ -56,6 +56,7 @@ function BookingPage(){
         getTrip();
         getSeatById()
     },[]);
+    
     const timeArrivalOld    = Trip.timeArrival;
     const timeDepartureOld    = Trip.timeDeparture;
     const timeDeparture = new Date(timeDepartureOld).toLocaleString(
@@ -90,6 +91,7 @@ function BookingPage(){
                         <div>Quantity: {Trip.seatQuantity}</div>
                         <h4>Ghế đã chọn: {selectedSeats.join(", ")}</h4>
                     <h3>Total: {Trip.price*selectedSeats.length}</h3>
+                   {/* { Trip.company.companyName} */}
                     </div>
                     
                 </Col>

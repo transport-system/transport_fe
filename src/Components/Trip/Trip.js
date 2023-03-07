@@ -30,7 +30,7 @@ function Trip({trip}){
     return (
         <div  data-aos="fade-up" data-aos-duration="3000" className="singleOffer m-3">
             <div className="destImage">
-                <img src="assets/banner_img.jpeg"  />
+                <img src={trip.image}  />
 
                 <span className="discount">
               30% Off
