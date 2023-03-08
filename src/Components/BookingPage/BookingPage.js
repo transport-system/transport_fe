@@ -6,6 +6,8 @@ import {Button, Col, message, Row} from "antd";
 import {useNavigate, useParams} from "react-router-dom"; 
 import SeatSelection from '../SeatSelection';
  import "./bookingPage.css"
+import Order from './orderForm/Order';
+import ModalOrder from './orderForm/ModalOrder';
 function BookingPage(){
     const params =useParams();
     const dispatch = useDispatch();
@@ -83,8 +85,25 @@ function BookingPage(){
         style: "currency",
         currency: "VND",
       });
+
+    //order
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const showModal = () => {
+      setIsModalOpen(true);
+    };
+  
+    const handleOk = () => {
+      setIsModalOpen(false);
+  
+    };
+  
+    const handleCancel = () => {
+      setIsModalOpen(false);
+    };
     return (
-        <section className='container'>
+<div>
+<section className='container'>
             <Row className=" ">
                 <Col lg={12} xs={24} sm={24} className="card">
                     <img className="card-img" src="../assets/banner_img.jpeg"  />
@@ -97,15 +116,20 @@ function BookingPage(){
                         <h4>Ghế đã chọn: {selectedSeats.join(", ")}</h4>
                     <h3>Total: {TotalPrice}</h3>
                     </div>
-                    <Button onClick={()=>navigate("/order")}>Book now</Button>
+                    <Button onClick={showModal}>Book now</Button>
                 </Col>
                 <Col lg={12} xs={24} sm={24} className='align-items-center'>
                 <SeatSelection selectedSeats={selectedSeats} setSelectedSeats={setSelectedSeats} Trip={Trip} Seat={Seats}/>
 
                 </Col>
             </Row>
-            
+            <ModalOrder isModalOpen={isModalOpen}
+          handleOk={handleOk}
+          handleCancel={handleCancel} selectedSeats={selectedSeats} trip={Trip}
+          ><Order/></ModalOrder>
         </section>
+</div>
+        
     );
 
 }

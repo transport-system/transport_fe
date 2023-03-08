@@ -4,6 +4,7 @@ import {useDispatch} from "react-redux";
 import {HideLoading, ShowLoading} from "../redux/alertsSlice";
 import {message,Row,Col} from "antd";
 import Trip from "./Trip/Trip";
+import Home from "./Home/Home";
 
 function Booking({tripSearch}){
     const dispatch = useDispatch();
@@ -31,8 +32,8 @@ function Booking({tripSearch}){
     useEffect(() => {
         getAllTrip();
     },[]);
-    return (
-        <div className="container mt-5">
+    return (<section>
+          <div className="container mt-5">
             <div>
                 {tripSearch == null ?  
                 <div>sasa
@@ -56,6 +57,8 @@ function Booking({tripSearch}){
             </div>
 
         </div>
+    </section>
+      
     );
 
 }

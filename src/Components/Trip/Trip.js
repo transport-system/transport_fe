@@ -106,9 +106,6 @@ function Trip({ trip }) {
 
             <button
               className="btn flex"
-              isModalOpen={isModalOpen}
-              handleOk={handleOk}
-              handleCancel={handleCancel}
               onClick={() => {
                 navigate(`/booking/${trip.tripId}`);
               }}
