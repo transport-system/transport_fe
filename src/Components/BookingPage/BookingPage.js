@@ -135,10 +135,10 @@ function BookingPage(){
 
                 </Col>
             </Row>
-            <ModalOrder isModalOpen={isModalOpen}
+            <Order isModalOpen={isModalOpen}
           handleOk={handleOk}
-          handleCancel={handleCancel} selectedSeats={selectedSeats} trip={Trip}
-          ><Order/></ModalOrder>
+          handleCancel={handleCancel} selectedSeats={selectedSeats} trip={Trip} totalPrice={TotalPrice}
+          ></Order>
        { isrendered &&  <Feedback companyId={Trip.companyId}/>}
         </section>
 </div>

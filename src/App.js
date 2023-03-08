@@ -14,6 +14,8 @@ import BookingPage from "./Components/BookingPage/BookingPage";
 import {useSelector} from "react-redux";
 import Loader from "./Components/Loader";
 import Feedback from './Components/feedbackPage/Feedback';
+import CartPage from './Components/BookingPage/CartPage';
+import BookedTrip from './Components/BookedPage/BookedTrip';
 function App() {
     const {loading} =useSelector(state => state.alerts)
 
@@ -27,10 +29,12 @@ function App() {
         <Route path="/register" element={<PublicRoute><Register/></PublicRoute>}/>
           <Route path="/booking" element={<PublicRoute><Booking/></PublicRoute>}/>
 
-          <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
+          <Route path="/profile" element={<PublicRoute><Profile/></PublicRoute>}/>
+          <Route path="/booked" element={<PublicRoute><BookedTrip/></PublicRoute>}/>
 
           <Route path="/booking/:id" element={<PublicRoute><BookingPage/></PublicRoute>}/>
           <Route path="/feedback/:id" element={<PublicRoute><Feedback/></PublicRoute>}/>
+          <Route path="/cart/:id" element={<PublicRoute><CartPage/></PublicRoute>}/>
 
           <Route path="/logout" element={<PublicRoute><Logout/></PublicRoute>}/>
 

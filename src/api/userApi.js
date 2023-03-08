@@ -1,30 +1,29 @@
-import axiosClient from "./axiosClient";
+import axiosPrivate from "./axiosPrivate";
 
 const userApi = {
   getUser(id) {
     const url = `/api/accounts/${id}`;
-    return axiosClient.get(url);
+    return axiosPrivate.get(url);
   },
   updateUser(id, data) {
     const url = `/api/accounts/${id}`;
-    return axiosClient.patch(url, data);
-  },checkLogin2:(payload) => {
-    // Cái đường dẫn API này tuỳ thuộc vào BE của bạn cho cái nào thì dùng cái đó
-    const url = '/api/auth/login';
-    return axiosClient.post(url,{withCredentials:false}, payload);}
-    ,
+    return axiosPrivate.patch(url, data);
+  },
   checkLogin(data) {
     const url = `/api/auth/login`;
-    return axiosClient.post(url, {data});
+    return axiosPrivate.post(url, {data});
   },
   registerUser() {
     const url = `/api/auth/register`;
-    return axiosClient.patch(url);
+    return axiosPrivate.patch(url);
   },
   changePassword(id) {
     const url = `/api/accounts/change/${id}`;
-    return axiosClient.patch(url);
-  },
+    return axiosPrivate.patch(url);
+  },getBooked(id){
+    const url = `/api/booking/customer${id}`;
+    return axiosPrivate.get(url);
+  }
 
 };
 

@@ -20,7 +20,9 @@
   --inputColor: hsl(330, 12%, 97%);
   --boxShadow:  0 2px 8px 2px rgba(178, 178, 178, 0.189);
 }
-
+.bodyChil{
+  padding-top: 100px;
+}
 video {
   position: absolute;
   top: 0;

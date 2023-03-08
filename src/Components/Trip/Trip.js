@@ -49,9 +49,9 @@ function Trip({ trip }) {
             <div className="price flex">
               <h5>
                 {trip.company.companyName}
-                <span className="status">
+                <span className="status m-2"> 
                   <StarFilled />
-                  {trip.company.rating}
+                  {trip.company.rating} <span>({(trip.company.feedBacks).length})</span>
                   {/* ({trip.company.feedback[0].length}) */}
                 </span>
               </h5>

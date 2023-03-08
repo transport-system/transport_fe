@@ -24,15 +24,16 @@ import {useNavigate} from "react-router-dom";
             console.log(response.data.list_trip_Customer)
             if (response.data) {
                 setTrips(response.data.list_trip_Customer);
+                message.success("Chuyến đi của bạn đâyyy")
 
-                message.success(response.data.message + "Thành công")
+                // message.success(response.data.message + "Thành công")
 
             } else {
-                message.error("Not Found!")
+                message.error("Xin lỗi, không có chuyến đi phù hợp với bạn!")
                 console.log(response)
             }
         } catch (err) {
-            message.error(err.message)
+            message.error("Xin lỗi, không có chuyến đi phù hợp với bạn!")
         }     }
 
      useEffect(()=>{
