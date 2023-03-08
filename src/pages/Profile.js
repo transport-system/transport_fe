@@ -1,68 +1,69 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import userApi from '../api/userApi'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import userApi from "../api/userApi";
 import { Form, message } from "antd";
+import { Descriptions } from "antd";
+import { useSelector } from "react-redux";
+import { Avatar } from 'antd';
+import { AntDesignOutlined } from '@ant-design/icons';
+import ProfileForm from "../Components/ProfileForm";
 
 function Profile() {
-    const[email,setEmail] = useState();
-    const[name,setName] = useState();
-    const[id,setId] = useState();
-    const[ava,setAva] = useState();
+  const { user } = useSelector((state) => state.user);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    useEffect(()=>{
-        const fetchUser = async ()=>{
-            const userInfo = await userApi.getUser(2);
-            console.log(userInfo.data.data)
-            setEmail(userInfo.data.data.email)
-            setName(userInfo.data.data.first_name)
-            setId(userInfo.data.data.id)
-            setAva(userInfo.data.data.avatar)
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
-        }
-
-        fetchUser();
-        
-    },[])
-
-    // useEffect(()=>{
-    //     axios.get('https://reqres.in/api/users/2').then(res=>{
-    //         console.log(res.data.data)
-    //         setUser(res.data.data)
-    //     }).catch(err=>{
-    //         console.log(err)
-    //     })
-    // },[])
   return (
     <div>
+      <div className="container mt-5">
+        <div className=" card p-5">
+          {/* <img src={ava} /> */}
+          <Avatar className="mb-5"
+                size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
+                icon={<AntDesignOutlined />}
+              />
+          <Descriptions title="User Info">
 
+            <Descriptions.Item label="UserName">
+              {user.username}
+            </Descriptions.Item>
+            <Descriptions.Item label="Telephone">
+              {user.phone}
+            </Descriptions.Item>
+            <Descriptions.Item label="Name ">
+              {user.firstname + " " + user.lastname}
+            </Descriptions.Item>
+            <Descriptions.Item label="Address" >
+              123 La Xuan Oai, Quan 9, TP.Thu Duc
+            </Descriptions.Item>
+            <Descriptions.Item label="Email ">{user.email}</Descriptions.Item>
+            <Descriptions.Item label="BirhtDate ">
+              {user.date_of_birth}
+            </Descriptions.Item>
+            <Descriptions.Item label="Gender ">{user.gender}</Descriptions.Item>
+          </Descriptions>
+          <div className="container right">
+          <button className="btn btn-primary" onClick={showModal}>
+        Update Profile
+      </button>
+          </div>
 
-       
-<div className="h-screen d-flex justify-content-center align-items-center">
-      <div className="w-500 card p-5">
-        
-        <img src={ava}/>
-        <Form layout="vertical" >
-        <Form.Item label="id" name='email' valuePropName='id'  >
-            <input type="text" value={id} />
-          </Form.Item>
-          <Form.Item label="Email" name='email' valuePropName='name'  >
-            <input type="text" value={email} />
-          </Form.Item>
-          <Form.Item label="name" name='name' valuePropName=''>
-            <input type="text" value={name} />
-          </Form.Item>
-          <div className="d-flex justify-content-between align-items-center">
-            {/* <Link to="/register">Click here to Register!</Link> */}
-          <button className="secondary-btn" type="submit">Save</button>
-        </div>  
-        </Form>
-
-
+          {isModalOpen && (
+      <ProfileForm
+        isModalOpen={isModalOpen}
+        handleCancel={handleCancel}
+      />
+    )}
+        </div>
       </div>
     </div>
-     
-    </div>
-  )
+  );
 }
 
-export default Profile
+export default Profile;

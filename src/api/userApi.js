@@ -1,20 +1,31 @@
 import axiosClient from "./axiosClient";
 
-const userApi ={
-    
-    getUser(id){
-        const url = `/api/login/${id}`
-        return axiosClient.get(url);
+const userApi = {
+  getUser(id) {
+    const url = `/api/accounts/${id}`;
+    return axiosClient.get(url);
+  },
+  updateUser(id, data) {
+    const url = `/api/accounts/${id}`;
+    return axiosClient.patch(url, data);
+  },checkLogin2:(payload) => {
+    // Cái đường dẫn API này tuỳ thuộc vào BE của bạn cho cái nào thì dùng cái đó
+    const url = '/api/auth/login';
+    return axiosClient.post(url,{withCredentials:false}, payload);}
+    ,
+  checkLogin(data) {
+    const url = `/api/auth/login`;
+    return axiosClient.post(url, {data});
+  },
+  registerUser() {
+    const url = `/api/auth/register`;
+    return axiosClient.patch(url);
+  },
+  changePassword(id) {
+    const url = `/api/accounts/change/${id}`;
+    return axiosClient.patch(url);
+  },
 
-    },
-    updateUser(data){
-        const url = `/api/users/${data.id}`
-        return axiosClient.patch(url,data)
-    },login:(payload)=>{
-        const url = '/login'
-        return axiosClient.post(url,payload);
-    }
-    
 };
 
 export default userApi;

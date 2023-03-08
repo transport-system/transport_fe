@@ -1,8 +1,11 @@
 import { combineReducers,configureStore } from "@reduxjs/toolkit";
 import userSlice from "./userSlice";
+import alertsSlice from "./alertsSlice";
 
 const rootReducer = combineReducers({
-    alerts:userSlice,
+    user:userSlice,
+    alerts:alertsSlice,
+
 })
 
 const store= configureStore({

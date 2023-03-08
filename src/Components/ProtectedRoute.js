@@ -1,47 +1,49 @@
 import axios from 'axios';
 import React ,{useEffect,useState}from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import {  useNavigate } from 'react-router-dom'
-
+import { SetUser } from '../redux/userSlice';
+import userApi from '../api/userApi'
+import Defaultlayout from './Defaultlayout'
+import UserLayout from "./UserLayout";
+import {HideLoading, ShowLoading} from "../redux/alertsSlice";
 function ProtectedRoute({children}) {
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    
+    // const {user}= useSelector(state => state.user);
     const[loading,setLoading]=useState(true);
     const validateToken=async ()=>{
         try{
-            
-            const response = await axios.post('https://reqres.in/api/users/2',{},{
-                // headers:{
-                //     Authorization:`Bearer ${localStorage.getItem('token')}`,
-                // },
-            });
+            dispatch(ShowLoading());
+            console.log(2)
+
+            const response = await userApi.getUser(localStorage.getItem('userId'))
+
+            console.log(response)
+            dispatch(HideLoading());
             if(true){
-              setLoading(false);
-
-
+                dispatch(SetUser(response.data.data))
+                console.log(response)
             }else{
-                setLoading(false);
-                navigate('/login')
+                localStorage.clear();
 
             }
         }catch(error){
-            setLoading(false);
-            navigate('/login')
+
+            localStorage.clear();
         }
     }
-    
+
     useEffect(()=>{
-        if(localStorage.getItem('token')){
             validateToken();
 
-        }else{
-            navigate('/login')
-        }
-    })
-  return (
-    <div>
-      { loading ? <div>loading..</div>: <>{children}</>}
-    </div>
-  )
+
+    },[])
+    return (
+        <div>
+           <UserLayout>{children}</UserLayout>
+        </div>
+    )
 }
 
 export default ProtectedRoute
