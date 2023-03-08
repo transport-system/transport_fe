@@ -8,6 +8,7 @@ import SeatSelection from '../SeatSelection';
  import "./bookingPage.css"
 import Order from './orderForm/Order';
 import ModalOrder from './orderForm/ModalOrder';
+import Feedback from '../feedbackPage/Feedback';
 function BookingPage(){
     const params =useParams();
     const dispatch = useDispatch();
@@ -25,7 +26,7 @@ function BookingPage(){
 
             if (response.data) {
                 setTrip(response.data.data_id);
-
+                
             } else {
                 message.error(response.data.message);
 
@@ -38,7 +39,7 @@ function BookingPage(){
     const getSeatById = async () => {
         try {
             dispatch(ShowLoading());
-            const response = await tripApi.getSeatById(4);
+            const response = await tripApi.getSeatById(Trip.vehicleId);
             dispatch(HideLoading());
             console.log(response.data);
 
@@ -46,18 +47,23 @@ function BookingPage(){
                 setSeats(response.data.data);
 
             } else {
-                message.error(response.data.message);
+                // message.error(response.data.message);
 
             }
         } catch (err) {
-            message.error(err.message);
+            // message.error(err.message);
 
         }
     };
     useEffect(() => {
+
         getTrip();
-        getSeatById()
+
     },[]);
+    useEffect(() => {
+        getSeatById()
+    },[Trip]);
+    
     
     const timeArrivalOld    = Trip.timeArrival;
     const timeDepartureOld    = Trip.timeDeparture;
@@ -87,6 +93,9 @@ function BookingPage(){
       });
 
     //order
+    const [isrendered,setisrendered]=useState(false);
+
+
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showModal = () => {
@@ -103,20 +112,23 @@ function BookingPage(){
     };
     return (
 <div>
-<section className='container'>
-            <Row className=" ">
+<section className='container pb-5 bookingP'>
+            <Row className=" " gutter={[16, 24]}>
                 <Col lg={12} xs={24} sm={24} className="card">
                     <img className="card-img" src="../assets/banner_img.jpeg"  />
-                    {Trip.companyName}
-                    <div className="card-body ">
+                    {Trip.companyName} - {Trip.rating}
+                    <div className="card-body p-2 m-2">
                         <h1 className="card-title">TripID: {Trip.tripId}</h1>
 
                         <div>Time: {timeDeparture} -  {timeArrival}</div>
                         <div>Quantity: {Trip.seatQuantity}</div>
-                        <h4>Ghế đã chọn: {selectedSeats.join(", ")}</h4>
-                    <h3>Total: {TotalPrice}</h3>
+                        <h5>Ghế đã chọn: {selectedSeats.join(", ")}</h5>
                     </div>
-                    <Button onClick={showModal}>Book now</Button>
+                    <h3>Total: {TotalPrice}</h3>
+                    <Button className='btn' onClick={showModal}>Book now</Button>
+                    <Button
+              onClick={()=>{isrendered ? setisrendered(false) : setisrendered(true)}}
+            >View Feedback</Button>
                 </Col>
                 <Col lg={12} xs={24} sm={24} className='align-items-center'>
                 <SeatSelection selectedSeats={selectedSeats} setSelectedSeats={setSelectedSeats} Trip={Trip} Seat={Seats}/>
@@ -127,6 +139,7 @@ function BookingPage(){
           handleOk={handleOk}
           handleCancel={handleCancel} selectedSeats={selectedSeats} trip={Trip}
           ><Order/></ModalOrder>
+       { isrendered &&  <Feedback companyId={Trip.companyId}/>}
         </section>
 </div>
         

@@ -19,6 +19,9 @@ const tripApi ={
     },getTripPopular(arrival,departure){
         const url = `/api/trip/customer/${arrival}/${departure}/`
         return axiosClient.get(url);
+    },getFeedback(id){
+        const url = `/api/feedbacks/all/company/${id}`
+        return axiosClient.get(url);
     }
 
     

@@ -16,7 +16,7 @@ export default function SeatSelection({selectedSeats,setSelectedSeats,Trip,Seat}
   return (
     <div>
         <div className='bus-container'>
-            <Row gutter={[10,10]}> 
+            <Row gutter={[20,25]}> 
                
                 {Seat.map(Seat=>{
                         // const [seatClass,setSeatClass] =["grey"];
@@ -27,7 +27,7 @@ export default function SeatSelection({selectedSeats,setSelectedSeats,Trip,Seat}
                     }
                     return(
 
-                        <Col span={6}>
+                        <Col span={capacity === 9 ? 12 : 6}>
 
                         <div className={`seat ${Seat.status} ${seatClass}`} onClick={()=>{selectOrUnselectSeats(Seat.seatNumber)}}>
             
