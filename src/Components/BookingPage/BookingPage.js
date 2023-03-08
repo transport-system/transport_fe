@@ -2,8 +2,8 @@ import React, {Component, useEffect, useState} from 'react';
 import {useDispatch} from "react-redux";
 import {HideLoading, ShowLoading} from "../../redux/alertsSlice";
 import tripApi from "../../api/tripApi";
-import {Col, message, Row} from "antd";
-import {useParams} from "react-router-dom"; 
+import {Button, Col, message, Row} from "antd";
+import {useNavigate, useParams} from "react-router-dom"; 
 import SeatSelection from '../SeatSelection';
  import "./bookingPage.css"
 function BookingPage(){
@@ -11,7 +11,7 @@ function BookingPage(){
     const dispatch = useDispatch();
     const [Trip, setTrip] = useState([]);
     const [Seats, setSeats] = useState([]);
-
+    const navigate = useNavigate();
     const [selectedSeats,setSelectedSeats] =useState([]);
 
     const getTrip = async () => {
@@ -22,7 +22,7 @@ function BookingPage(){
             console.log(response.data);
 
             if (response.data) {
-                dispatch(setTrip(response.data));
+                setTrip(response.data.data_id);
 
             } else {
                 message.error(response.data.message);
@@ -36,7 +36,7 @@ function BookingPage(){
     const getSeatById = async () => {
         try {
             dispatch(ShowLoading());
-            const response = await tripApi.getSeatById(params.id);
+            const response = await tripApi.getSeatById(4);
             dispatch(HideLoading());
             console.log(response.data);
 
@@ -78,29 +78,34 @@ function BookingPage(){
             minute: "2-digit",
         }
     );
+    const [error, setError] = useState(false);
+    const TotalPrice = (Trip.price*selectedSeats.length).toLocaleString("it-IT", {
+        style: "currency",
+        currency: "VND",
+      });
     return (
-        <div className="container">
-            <Row className=" m-5 p-5">
-                <Col lg={12} xs={12} sm={12} className="card">
+        <section className='container'>
+            <Row className=" ">
+                <Col lg={12} xs={24} sm={24} className="card">
                     <img className="card-img" src="../assets/banner_img.jpeg"  />
-
+                    {Trip.companyName}
                     <div className="card-body ">
-                        <h1 className="card-title">TripID: {Trip.id}</h1>
+                        <h1 className="card-title">TripID: {Trip.tripId}</h1>
 
                         <div>Time: {timeDeparture} -  {timeArrival}</div>
                         <div>Quantity: {Trip.seatQuantity}</div>
                         <h4>Ghế đã chọn: {selectedSeats.join(", ")}</h4>
-                    <h3>Total: {Trip.price*selectedSeats.length}</h3>
-                   {/* { Trip.company.companyName} */}
+                    <h3>Total: {TotalPrice}</h3>
                     </div>
-                    
+                    <Button onClick={()=>navigate("/order")}>Book now</Button>
                 </Col>
-                <Col lg={12} xs={12} sm={12} className='align-items-center'>
+                <Col lg={12} xs={24} sm={24} className='align-items-center'>
                 <SeatSelection selectedSeats={selectedSeats} setSelectedSeats={setSelectedSeats} Trip={Trip} Seat={Seats}/>
 
                 </Col>
             </Row>
-        </div>
+            
+        </section>
     );
 
 }

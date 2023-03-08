@@ -18,22 +18,21 @@ import {useNavigate} from "react-router-dom";
      const handleSubmit=async (values)=>{
         try {
 
-            navigate("/booking")
+            // navigate("/booking")
             const response = await tripApi.getTripSearch(values.arrival,values.departure,values.date)
             dispatch(HideLoading());
-            console.log(response)
+            console.log(response.data.list_trip_Customer)
             if (response.data) {
                 setTrips(response.data.list_trip_Customer);
 
-                message.success(response.data.message+ "Thành công")
+                message.success(response.data.message + "Thành công")
 
             } else {
-                message.error("Add Fail!")
+                message.error("Not Found!")
                 console.log(response)
             }
         } catch (err) {
             message.error(err.message)
-            console.log(JSON.stringify(values))
         }     }
 
      useEffect(()=>{
@@ -70,28 +69,20 @@ import {useNavigate} from "react-router-dom";
                                }
                                options={[
                                    {
-                                       value: 'SG',
+                                       value: 'Sài Gòn',
                                        label: 'Sài Gòn',
                                    },
                                    {
-                                       value: 'Đl',
+                                       value: 'Đà Lạt',
                                        label: 'Đà Lạt',
                                    },
                                    {
-                                       value: '3',
-                                       label: 'Cần Thơ',
+                                       value: 'Huế',
+                                       label: 'Huế',
                                    },
                                    {
-                                       value: '4',
-                                       label: 'Identified',
-                                   },
-                                   {
-                                       value: '5',
-                                       label: 'Resolved',
-                                   },
-                                   {
-                                       value: '6',
-                                       label: 'Cancelled',
+                                       value: 'Nha Trang',
+                                       label: 'Nha Trang',
                                    },
                                ]}
                            />
@@ -109,31 +100,23 @@ import {useNavigate} from "react-router-dom";
                                    (optionA?.label ?? '').toLowerCase().localeCompare((optionB?.label ?? '').toLowerCase())
                                }
                                options={[
-                                   {
-                                       value: 'SG',
-                                       label: 'Sài Gòn',
-                                   },
-                                   {
-                                       value: 'Đl',
-                                       label: 'Đà Lạt',
-                                   },
-                                   {
-                                       value: '3',
-                                       label: 'Cần Thơ',
-                                   },
-                                   {
-                                       value: '4',
-                                       label: 'Identified',
-                                   },
-                                   {
-                                       value: '5',
-                                       label: 'Resolved',
-                                   },
-                                   {
-                                       value: '6',
-                                       label: 'Cancelled',
-                                   },
-                               ]}
+                                {
+                                    value: 'Sài Gòn',
+                                    label: 'Sài Gòn',
+                                },
+                                {
+                                    value: 'Đà Lạt',
+                                    label: 'Đà Lạt',
+                                },
+                                {
+                                    value: 'Huế',
+                                    label: 'Huế',
+                                },
+                                {
+                                    value: 'Nha Trang',
+                                    label: 'Nha Trang',
+                                },
+                            ]}
                            />
                        </Form.Item>
                        <Form.Item  name="date" data-aos="fade-right" data-aos-duration="3000" className="priceDiv">

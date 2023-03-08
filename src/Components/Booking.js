@@ -8,7 +8,7 @@ import Trip from "./Trip/Trip";
 function Booking({tripSearch}){
     const dispatch = useDispatch();
     const [Trips, setTrips] = useState([]);
-
+    console.log("Trip nè:",tripSearch)
     const getAllTrip = async () => {
         try {
             dispatch(ShowLoading());
@@ -34,15 +34,18 @@ function Booking({tripSearch}){
     return (
         <div className="container mt-5">
             <div>
-                {tripSearch == null ?  <div>All Trip {Trips.company}<Row>
+                {tripSearch == null ?  
+                <div>sasa
+                    {/* All Trip {Trips.company}<Row>
                     {Trips.map(trip=>(
                         <Col lg={12} xs={24} sm={24}>
                             <Trip trip={trip}/>
                         </Col>
                     ))}
-                </Row></div> : <div className="pt-5"><Row>
+                </Row> */}
+                </div> : <div className="pt-5"><Row>
                     {tripSearch.map(trip=>(
-                        <Col lg={12} xs={24} sm={24}>
+                        <Col lg={24} xs={24} sm={24}>
                             <Trip trip={trip}/>
                         </Col>
                     ))}

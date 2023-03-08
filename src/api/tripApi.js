@@ -16,6 +16,9 @@ const tripApi ={
     },getSeatById(id){
         const url = `/api/seat/vehicle/${id}`
         return axiosClient.get(url); 
+    },getTripPopular(arrival,departure){
+        const url = `/api/trip/customer/${arrival}/${departure}/`
+        return axiosClient.get(url);
     }
 
     

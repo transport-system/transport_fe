@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import './popular.css'
 import {BsArrowRightShort} from 'react-icons/bs'
 import {BsArrowLeftShort} from 'react-icons/bs'
@@ -13,8 +13,11 @@ import img7 from '../../Assets/image (7).jpg'
 // import AOS ======================>
 import Aos from 'aos'
 import 'aos/dist/aos.css'
-
-
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { message } from 'antd'
+import tripApi from "../../api/tripApi";
+import Booking from '../Booking'
 
 
 const Data = [
@@ -23,24 +26,30 @@ const Data = [
   id:1,
   imgSrc: img2,
   destTitle: 'Machu Picchu',
-  location: 'Đà Lạt',
+  location: 'Sài Gòn - Đà Lạt',
   grade: 'CULTURAL RELAX ',
+  departure:'Sài Gòn',
+  arrival:'Đà Lạt'
   },
 
   {
   id:2,
   imgSrc: img5,
   destTitle: 'Guanajuato',
-  location: 'Cần Thơ',
+  location: 'Sài Gòn - Huế',
   grade: 'CULTURAL RELAX ',
+  departure:'Sài Gòn',
+  arrival:'Huế'
   },
 
   {
   id:3,
   imgSrc: img7,
   destTitle: 'Angkor Wat',
-  location: 'Vũng Tàu',
-  grade: 'CULTURAL RELAX ',  
+  location: 'Sài Gòn - Nha Trang',
+  grade: 'CULTURAL RELAX ', 
+  departure:'Sài Gòn',
+  arrival:'Nha Trang' 
   },
 
 
@@ -48,14 +57,38 @@ const Data = [
   id:4,
   imgSrc: img9,
   destTitle: 'Taj Mahal',
-  location: 'Đồng Nai',
+  location: 'Huế - Sài Gòn',
   grade: 'CULTURAL RELAX ',
+  departure:'Huế',
+  arrival:'Sài Gòn'
   }
-
 ]
 
  
  const Popular = () => {
+  const dispatch = useDispatch();
+  const [Trips, setTrips] = useState([]);
+  const navigate = useNavigate();
+
+  const handleSubmit=async (departure,arrival)=>{
+    try {
+  
+        navigate("/booking")
+        const response = await tripApi.getTripPopular(arrival,departure)
+        console.log(response.data.list_trip_Customer)
+        if (response.data) {
+            setTrips(response.data.list_trip_Customer);
+  
+            message.success(response.data.message + "Thành công")
+  
+        } else {
+            message.error("Not Found!")
+            console.log(response)
+        }
+    } catch (err) {
+        message.error(err.message)
+    }     }
+
       useEffect(()=>{
         Aos.init({duration: 2000})
     }, [])
@@ -84,7 +117,7 @@ const Data = [
           {/* Single Destination from the map Array */}
 
           {
-            Data.map(({id, imgSrc, destTitle, location, grade })=>{
+            Data.map(({id, imgSrc, destTitle, location, departure,arrival })=>{
               return (
                 <div data-aos="fade-up" className="singleDestination">
             <div className="destImage">
@@ -99,7 +132,7 @@ const Data = [
                   {location}
                 </p>
 
-                <BsArrowRightShort className='icon'/>
+                <BsArrowRightShort onClick={()=>handleSubmit(departure,arrival)} className='icon'/>
                 
             </div>
             </div>
@@ -131,7 +164,10 @@ const Data = [
            
         </div>
       </div>
+      <Booking tripSearch={Trips}/>
+
      </section>
+     
    )
  }
  

@@ -6,6 +6,7 @@ import {Link, useNavigate} from "react-router-dom";
 import Navbar from "./globalNav/Navbar";
 import Home from "./Home/Home";
 import Footer from "./Footer/Footer";
+import Popular from './Popular/Popular';
 
 function DefaultLayout ({children}) {
     const {user}= useSelector(state => state.user);
