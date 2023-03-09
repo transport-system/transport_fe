@@ -36,6 +36,7 @@ function BookingPage(){
 
         }
     };
+    
     const getSeatById = async () => {
         try {
             dispatch(ShowLoading());
