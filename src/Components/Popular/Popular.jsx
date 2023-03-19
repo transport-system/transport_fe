@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import './popular.css'
 import {BsArrowRightShort} from 'react-icons/bs'
 import {BsArrowLeftShort} from 'react-icons/bs'
 import {BsDot} from 'react-icons/bs'

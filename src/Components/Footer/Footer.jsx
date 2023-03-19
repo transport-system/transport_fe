@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react'
-import './footer.css'
 import {ImFacebook} from 'react-icons/im'
 import {BsTwitter} from 'react-icons/bs'
 import {AiFillInstagram} from 'react-icons/ai'
@@ -15,60 +14,21 @@ import 'aos/dist/aos.css'
   }, []) 
 
    return (
-     <div className='footer'>
-      <div className="secCotainer container grid">
-         <div data-aos="fade-up" data-aos-duration="2000" className="logoDiv">
-         <div className="footerLogo">
-            <a href="#" className="logo flex"><h1><SiYourtraveldottv className='icon' />  FPT</h1></a>
-          </div>
-
-          <div  className="socials flex">
-              <ImFacebook className="icon"/>
-              <BsTwitter className="icon"/>
-              <AiFillInstagram className="icon"/>
-          </div>
-         </div>
-
-         <div data-aos="fade-up" data-aos-duration="2500" className="footerLinks">
-          <span className="linkTitle">Information</span>
-            <li>
-              <a href="/">Home</a>
-            </li>
-            <li>
-              <a href="/base">Explore</a>
-            </li>
-            <li>
-              <a href="#">Travel</a>
-            </li>
-            <li>
-              <a href="#">Blog</a>
-            </li>
-          
-         </div>
-         <div data-aos="fade-up" data-aos-duration="3000" className="footerLinks">
-          <span className="linkTitle">Helpful Links</span>
-            <li>
-              <a href="#">Destination</a>
-            </li>
-            <li>
-              <a href="#">Support</a>
-            </li>
-            <li>
-              <a href="#">Travel & Condition</a>
-            </li>
-            <li>
-              <a href="#">Privacy</a>
-            </li>
-          
-         </div>
-         <div data-aos="fade-up" data-aos-duration="3500" className="footerLinks">
-          <span className="linkTitle">Contact</span>
-           <span className='phone'>+84 996 252525</span>
-           <span className="email">dtgkhang99@gmail.com</span>
-          
-         </div>
-      </div> 
-     </div>
+    <div class="row">
+    <div class="col-md-12">
+        <div class="copy-right">
+            <p class="copy__desc">
+                Copyright ©2023 SWP391 FPT. Made with
+                <span class="la la-heart-o"></span> by <a href="https://techydevs.com">SWP.</a>
+            </p>
+            <ul class="condition-links">
+                <li><a href="#">Terms & Conditions</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Help Center</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
    )
  }
  

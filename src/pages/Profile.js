@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { Avatar } from 'antd';
 import { AntDesignOutlined } from '@ant-design/icons';
 import ProfileForm from "../Components/ProfileForm";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const { user } = useSelector((state) => state.user);
@@ -18,7 +19,7 @@ function Profile() {
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-
+  const navigate = useNavigate();
   return (
     <div>
       <div className="container mt-5">
@@ -49,8 +50,11 @@ function Profile() {
             <Descriptions.Item label="Gender ">{user.gender}</Descriptions.Item>
           </Descriptions>
           <div className="container right">
-          <button className="btn btn-primary" onClick={showModal}>
-        Update Profile
+          <button className="btn btn-primary m-2" onClick={showModal}>
+        Cập nhật Profile
+      </button>
+      <button className="btn btn-primary m-2" onClick={()=>navigate("/booked")}>
+        Xem vé đã mua
       </button>
           </div>
 

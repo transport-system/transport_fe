@@ -7,7 +7,10 @@ const bookApi ={
     },    payBook(data){
         const url = `/api/booking/pay`
         return axiosClient.post(url,data);
-    },
+    },getBookedById(id){
+        const url = `/api/booking/${id}`
+        return axiosClient.get(url);
+    }
     
 };
 

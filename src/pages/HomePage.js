@@ -10,7 +10,6 @@ function HomePage() {
     
     <div>
         <Home/>
-        <Popular/>
     </div>
   )
 }

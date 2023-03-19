@@ -7,7 +7,7 @@ const tripApi ={
     },getAllVehicle(){
         const url = `/api/vehicle/getAll`
         return axiosClient.get(url);        
-    },getTripSearch(arrival,departure,date){
+    },getTripSearch(departure,arrival,date){
         const url = `/api/trip/customer/${arrival}/${departure}/${date}`
         return axiosClient.get(url);
     },getTripById(id){

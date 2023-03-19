@@ -34,8 +34,6 @@ function Login({isModalOpen,handleOk,handleCancel}) {
         localStorage.setItem("userID",JSON.stringify(response.data.data.id))
                 localStorage.setItem("token",response.data.data.token)
 
-        window.location.reload(false);
-
         console.log(response.data.data.id)
 
 

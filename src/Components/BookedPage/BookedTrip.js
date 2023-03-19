@@ -13,7 +13,7 @@ function BookedTrip() {
     const [listBooked,setListBooked] = useState([])
     const getFeedback = async () => {
         try {
-            // dispatch(ShowLoading());
+            dispatch(ShowLoading());
             const response = await userApi.getBooked(localStorage.getItem("userID"));
             dispatch(HideLoading());
             console.log(response.data);
@@ -35,7 +35,7 @@ function BookedTrip() {
     },[]);
     
   return (
-    <div className='container p-4  mt-3 mb-3 card'>
+    <div className='container booked p-4  mt-3  card'>
         <h5>Chuyến đi đã Book</h5>
         <div className="pt-5"><Row>
                     {listBooked.map(booked=>(

@@ -6,11 +6,12 @@ function TripBooked({booked}) {
         currency: "VND",
       });
   return (
-    <div><div class="card">
+    <div><div class="card p-2 m-2">
     <div class="card-body">
       <h5 class="card-title">Booked ID: {booked.id}</h5>
       <p class="card-text">trạng thái : {booked.status}</p>
-      <p class="card-text">Ghế đặt : {booked.seatResponse}</p>
+      {/* <p class="card-text">Ghế đặt : {booked.seatResponse}</p> */}
+      <p class="card-text">Phương thức thanh toán : {booked.paymentMethod}</p>
       <p class="card-text">totalPrice : {TotalPrice}</p>
       {/* <p class="card-text">TripID : {booked.tripResponse.tripId}</p>
       <p class="card-text">Loại xe : {booked.vehicle.vehicleType}</p> */}

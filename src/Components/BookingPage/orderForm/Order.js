@@ -6,10 +6,17 @@ import { useDispatch } from "react-redux";
 import { HideLoading, ShowLoading } from "../../../redux/alertsSlice";
 import { useNavigate } from "react-router";
 
-function Order({ isModalOpen, handleOk, handleCancel, selectedSeats, trip ,totalPrice}) {
+function Order({
+  isModalOpen,
+  handleOk,
+  handleCancel,
+  selectedSeats,
+  trip,
+  totalPrice,
+}) {
   const [dataBook, setDataBook] = useState({});
   const dispatch = useDispatch();
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
   const handleSubmit = async (values) => {
     dispatch(ShowLoading());
     values.seatNumber = selectedSeats;
@@ -23,7 +30,7 @@ function Order({ isModalOpen, handleOk, handleCancel, selectedSeats, trip ,total
 
       if (response.data) {
         message.success(response.data.message);
-        navigate(`/cart/${response.data.id}`)
+        navigate(`/checkout/${response.data.id}`);
       } else {
         message.error("Add Fail!");
         console.log(response);
@@ -36,17 +43,21 @@ function Order({ isModalOpen, handleOk, handleCancel, selectedSeats, trip ,total
   const handleCart = async () => {
     dispatch(ShowLoading());
     const seatNumber = selectedSeats;
-   const tripId = trip.tripId;
-   const accountId = localStorage.getItem("userID")
+    const tripId = trip.tripId;
+    const accountId = localStorage.getItem("userID");
     dispatch(HideLoading());
 
     try {
-      const response = await bookApi.createBook({accountId,seatNumber,tripId});
+      const response = await bookApi.createBook({
+        accountId,
+        seatNumber,
+        tripId,
+      });
       console.log(response);
 
       if (response.data) {
         message.success(response.data.message);
-        navigate(`/cart/${response.data.id}`)
+        navigate(`/cart/${response.data.id}`);
       } else {
         message.error("Add Fail!");
         console.log(response);
@@ -66,21 +77,57 @@ function Order({ isModalOpen, handleOk, handleCancel, selectedSeats, trip ,total
     >
       {localStorage.getItem("userID") == null ? (
         <Form onFinish={handleSubmit}>
-          <Form.Item label="Email" name="email">
-            <Input />
-          </Form.Item>
-          <Form.Item label="First Name" name="firstname">
-            <Input />
-          </Form.Item>
-          <Form.Item label="Last Name" name="lastname">
-            <Input />
-          </Form.Item>
-          <Form.Item label="phone" name="phone">
-            <Input />
-          </Form.Item>
+          <div class="form-content ">
+            <div class="contact-form-action">
+              <form method="post">
+                <div class="row">
+                  <div class="col-lg-6 responsive-column">
+                    <div class="input-box"></div>
+                    <Form.Item
+                      label="First Name"
+                      name="firstname"
+                      class="form-group"
+                    >
+                      <Input
+                        prefix={<span class="la la-user form-icon"></span>}
+                        placeholder="Enter your firstname"
+                      />
+                    </Form.Item>
+                  </div>
+                  <div class="col-lg-6 responsive-column">
+                    <div class="input-box"></div>
+                    <Form.Item label="Last Name" name="lastname">
+                      <Input
+                               prefix={<span class="la la-user form-icon"></span>}
+                               placeholder="Enter your lastname"
+                      />
+                    </Form.Item>
+                  </div>
+                  <div class="col-lg-6 responsive-column">
+                    <div class="input-box"></div>
+                    <Form.Item label="Email" name="email">
+                      <Input          prefix={<span class="la la-envelope-o form-icon"></span>}
+                        placeholder="Enter your email"/>
+                    </Form.Item>
+                  </div>
+                  <div class="col-lg-6 responsive-column">
+                    <div class="input-box"></div>
+
+                    <Form.Item label="phone" name="phone">
+                      
+                      <Input   prefix={ <span class="la la-phone form-icon"></span>}
+                        placeholder="Enter your phone"/>
+                    </Form.Item>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          {/* 
           <Form.Item label="note" name="note">
             <Input />
-          </Form.Item>
+          </Form.Item> */}
           {/* <Form.Item label="trip" name="tripId">
             <Input />
         </Form.Item> */}
@@ -103,7 +150,8 @@ function Order({ isModalOpen, handleOk, handleCancel, selectedSeats, trip ,total
           <Button
             type="primary"
             htmlType="submit"
-            className="btn" onClick={()=>handleCart()}
+            className="btn"
+            onClick={() => handleCart()}
           >
             Xác nhận
           </Button>

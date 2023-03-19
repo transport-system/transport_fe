@@ -15,6 +15,7 @@ import {
 import { useState } from 'react';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import axios from "axios";
+import React, { Component }  from 'react';
 
 function Register() {
   const navigate = useNavigate();

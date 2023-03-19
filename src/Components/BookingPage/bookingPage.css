@@ -9,6 +9,8 @@
 }
 .INACTIVE{
     background-color: rgb(128, 128, 128);
+    pointer-events: none;
+
 }
 .PENDING{
     pointer-events: none;
@@ -43,7 +45,7 @@
     background-color: green;
     color: white;
 }
-.app-container{
+/* .app-container{
     margin-top: 100px;
     
 }
@@ -150,7 +152,7 @@
   }
   
   /* Removes form Controls  */
-  input[type=number]::-webkit-inner-spin-button, 
+  /* input[type=number]::-webkit-inner-spin-button, 
   input[type=number]::-webkit-outer-spin-button { 
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -184,4 +186,4 @@
     letter-spacing: 1.5px;
     cursor: pointer;
   }
-  
+   */

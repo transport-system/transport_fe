@@ -21,7 +21,7 @@ const userApi = {
     const url = `/api/accounts/change/${id}`;
     return axiosPrivate.patch(url);
   },getBooked(id){
-    const url = `/api/booking/customer${id}`;
+    const url = `/api/booking/account/${id}`;
     return axiosPrivate.get(url);
   }
 

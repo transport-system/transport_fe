@@ -13,7 +13,7 @@ function PublicRoute({children}) {
     const {loading} = useSelector((state)=>state.alerts)
     const validateToken=async ()=>{
         try{
-            dispatch(ShowLoading());
+            // dispatch(ShowLoading());
             const response = await userApi.getUser(localStorage.getItem("userID"))
 
             console.log(response)
