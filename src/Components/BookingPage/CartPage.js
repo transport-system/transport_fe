@@ -1,5 +1,5 @@
 import { Button, Form, Input, message } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import bookApi from "../../api/bookApi";
 import "./bookingPage.css";
@@ -29,9 +29,29 @@ const Item = (props) => (
 
 function CartPage() {
   const params = useParams();
+  const [booked,setBooked] =useState({});
+  const getBooked = async () => {
+    try {
+        const response = await bookApi.getBookedById(params.id);
+        console.log(response.data);
 
- 
+        if (response.data) {
+          setBooked(response.data.data_id);
+            
+        } else {
+            message.error(response.data.message);
 
+        }
+    } catch (err) {
+        message.error(err.message);
+
+    }
+};
+useEffect(() => {
+
+  getBooked();
+
+},[]);
   const handleSubmit = async () => {
     const bookingId = params.id
     const method = "card"
@@ -43,19 +63,7 @@ function CartPage() {
       if (response.data) {
         message.success(response.data.message);
         // navigate(`/cart/${response.data.id}`)
-        var templateParams = {
-            name: 'James',
-            message: `Vé của bạn đạ được đặt thành Công!
-             BookId: ${bookingId}
-            `
-        };
 
-        emailjs.send('service_q99gr6a', 'template_o1n5t7m', templateParams)
-    .then(function(response) {
-       console.log('SUCCESS!', response.status, response.text);
-    }, function(error) {
-       console.log('FAILED...', error);
-    });
       } else {
         message.error("Add Fail!");
         console.log(response);
@@ -64,15 +72,17 @@ function CartPage() {
     //   message.error(err.message);
     //   console.log(values);
     }
-  };  return (
+  }; 
+  
+  return (
     <div className="app-container">
       <div className="row">
         <div className="col">
-          <Item
+          {/* <Item
             name="Instax Mini 90 Neo Classic"
             price="$144.99"
             img="http://ecx.images-amazon.com/images/I/61%2BABMMN5zL._SL1500_.jpg"
-          />
+          /> */}
         </div>
         <div className="col no-gutters">
           <div className="checkout">
