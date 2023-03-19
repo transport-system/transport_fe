@@ -123,7 +123,7 @@ const Navbar = () => {
               <div
                 class="header-right d-flex align-items-center justify-content-end"
               >
- {user == null ?  <div class="header-right-action">
+ {user ?  <div class="header-right-action">
                   <a
                     href="#"
                     class="theme-btn theme-btn-small theme-btn-transparent mr-1"

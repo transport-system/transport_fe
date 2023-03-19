@@ -29,7 +29,12 @@ function CheckOut() {
       getBooked();
     
     },[]);
-
+    const price = (price) =>{ const  newPrice = price.toLocaleString("it-IT", {
+        style: "currency",
+        currency: "VND",
+      });
+    return newPrice
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -53,6 +58,18 @@ function CheckOut() {
         //   console.log(values);
         }
       }; 
+    
+      const tranfer=(time)=>{
+       const newTime = new Date(time).toLocaleString("en-US", {
+            month: "short",
+            day: "2-digit",
+            year: "numeric",
+            hour: "2-digit",
+            minute: "2-digit",
+          });
+          return newTime;
+      }
+
   return (
     <div>
     {/* ================================
@@ -294,21 +311,21 @@ START BOOKING AREA
                 <div className="card-item shadow-none radius-none mb-0">
                   <div className="card-img pb-4">
                     <a href="#" className="d-block">
-                      <img src={booked.tripResponse ? booked.tripResponse.image :''} alt="room-img" />
+                      <img src={booked.tripResponse ? booked.tripResponse.image :''} alt="Trip-img" />
                     </a>
                   </div>
                   <div className="card-body p-0">
                     <div className="d-flex justify-content-between">
                       <div>
-                        <h3 className="card-title">Premium Lake View Room</h3>
-                        <p className="card-meta">Mariana's hotel, Mexico</p>
+                        <h3 className="card-title">{booked.tripResponse ? booked.tripResponse.departure + "-" + booked.tripResponse.arrival  :''} </h3>
+                        <p className="card-meta">{booked.companyName} Company</p>
                       </div>
             
                     </div>
                     <div className="section-block" />
                     <ul className="list-items list-items-2 list-items-flush py-2">
-                      <li className="font-size-15"><span className="w-auto d-block mb-n1"><i className="la la-calendar mr-1 font-size-17" />From</span>12 May 2020 7:40am</li>
-                      <li className="font-size-15"><span className="w-auto d-block mb-n1"><i className="la la-calendar mr-1 font-size-17" />To</span>16 May 2020 8:40am</li>
+                      <li className="font-size-15"><span className="w-auto d-block mb-n1"><i className="la la-calendar mr-1 font-size-17" />From</span>{booked.tripResponse ?  tranfer(booked.tripResponse.timeDeparture) : ''}</li>
+                      <li className="font-size-15"><span className="w-auto d-block mb-n1"><i className="la la-calendar mr-1 font-size-17" />To</span>{booked.tripResponse ?  tranfer(booked.tripResponse.timeArrival) : ''}</li>
                     </ul>
                     <h3 className="card-title pb-3">Order Details</h3>
                     <div className="section-block" />
@@ -323,9 +340,9 @@ START BOOKING AREA
                     </ul>
                     <div className="section-block" />
                     <ul className="list-items list-items-2 pt-3">
-                      <li><span>Sub Total:</span>${booked.totalPrice}</li>
+                      <li><span>Sub Total:</span>${booked.totalPrice ? price(booked.totalPrice) : ''}</li>
                       <li><span>Vouncher:</span>$0</li>
-                      <li><span>Total Price:</span>${booked.totalPrice}</li>
+                      <li><span>Total Price:</span>${booked.totalPrice ? price(booked.totalPrice) : ''}</li>
                     </ul>
                   </div>
                 </div>{/* end card-item */}

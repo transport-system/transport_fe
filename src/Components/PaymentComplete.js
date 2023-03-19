@@ -1,6 +1,50 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom';
+import bookApi from '../api/bookApi';
+import { message } from 'antd';
 
 function PaymentComplete() {
+    const params = useParams();
+    const [booked,setBooked] =useState({});
+    const navigate = useNavigate()
+    const getBooked = async () => {
+        try {
+            const response = await bookApi.getBookedById(params.id);
+            console.log(response.data);
+    
+            if (response.data) {
+              setBooked(response.data);
+                
+            } else {
+                message.error(response.data.message);
+    
+            }
+        } catch (err) {
+            message.error(err.message);
+    
+        }
+    };
+    useEffect(() => {
+    
+      getBooked();
+    
+    },[]);
+    const tranfer=(time)=>{
+        const newTime = new Date(time).toLocaleString("en-US", {
+             month: "short",
+             day: "2-digit",
+             year: "numeric",
+             hour: "2-digit",
+             minute: "2-digit",
+           });
+           return newTime;
+       }
+       const price = (price) =>{ const  newPrice = price.toLocaleString("it-IT", {
+        style: "currency",
+        currency: "VND",
+      });
+    return newPrice
+    }
   return (
     <section className="payment-area section-bg section-padding">
     <div className="container">
@@ -30,49 +74,49 @@ function PaymentComplete() {
                 <div className="d-flex align-items-center">
                   <i className="la la-check icon-element flex-shrink-0 mr-3 ml-0" />
                   <div>
-                    <h3 className="title pb-1">Thanks Alex!</h3>
-                    <h3 className="title">Your booking in EnVision Hotel Boston is confirmed.</h3>
+                    <h3 className="title pb-1">Thanks {booked.c_Firstname}</h3>
+                    <h3 className="title">Your booking {booked.id} ID is confirmed.</h3>
                   </div>
                 </div>
                 <ul className="list-items py-4">
-                  <li><i className="la la-check text-success mr-2" /><strong className="text-black">EnVision Hotel Boston</strong> is Expecting you on <strong className="text-black">01 june</strong></li>
-                  <li><i className="la la-check text-success mr-2" />Your <strong className="text-black">payment</strong> will be handled by EnVision Hotel Boston, the <strong className="color-text-2">'Payment'</strong> section below has more details</li>
+                  {/* <li><i className="la la-check text-success mr-2" /><strong className="text-black">EnVision Hotel Boston</strong> is Expecting you on <strong className="text-black">01 june</strong></li> */}
+                  <li><i className="la la-check text-success mr-2" />Your <strong className="text-black">payment</strong> will be handled by us, the <strong className="color-text-2">'Payment'</strong> section below has more details</li>
                   <li><i className="la la-check text-success mr-2" />Make changes to your booking or ask the properly a question in just a few clicks</li>
                 </ul>
                 <div className="form-content">
         <div className="row">
           <div className="col-lg-6">
             <div className="payment-received-list">
-              <h3 className="title font-size-24">EnVision Hotel Boston</h3>
+              <h3 className="title font-size-24">{booked.tripResponse ? booked.tripResponse.departure + "-" + booked.tripResponse.arrival  :''}</h3>
               <div className="card-rating">
                 <span className="badge badge-warning text-white">4.4/5</span>
                 <span className="review__text text-warning">Average</span>
                 <span className="rating__text">(30 Reviews)</span>
               </div>
               <ul className="list-items list-items-2 py-3">
-                <li><span>Location:</span>Delaware, OH, USA</li>
-                <li><span>Check-in:</span>Thu 30 Mar, 2020</li>
-                <li><span>Check-out:</span>Sat 01 Jun, 2020</li>
-                <li><span>Booking details:</span>2 Nights, 1 Room, Max 2 Adult(s)</li>
-                <li><span>Room type:</span>Luxury View Suite</li>
-                <li><span>Client:</span>David Martin</li>
+                <li><span>Date:</span>{booked.tripResponse ?  tranfer(booked.tripResponse.timeDeparture) : ''}</li>
+                <li><span>From</span>{booked.tripResponse ? booked.tripResponse.departure :''}</li>
+                <li><span>To:</span>{booked.tripResponse ? booked.tripResponse.arrival :''}</li>
+                <li><span>Booking details:</span>{booked.numberOfSeats}</li>
+                <li><span>Vehicle type:</span>{booked.tripResponse ? booked.tripResponse.vehicle.vehicleType :''}</li>
+                <li><span>Client:</span>{booked.companyName}</li>
               </ul>
             </div>{/* end card-item */}
           </div>{/* end col-lg-6 */}
           <div className="col-lg-6">
             <div className="card-item card-item-list payment-received-card">
               <div className="card-img">
-                <img src="images/img1.jpg" alt="hotel-img" />
+                <img src={booked.tripResponse ? booked.tripResponse.image :''} alt="hotel-img" />
               </div>
               <div className="card-body">
-                <h3 className="card-title">1 Room x 2 Nights</h3>
+                <h3 className="card-title">{booked.numberOfSeats}</h3>
                 <div className="card-price pb-3">
                   <span className="price__from">From</span>
-                  <span className="price__num">$88.00</span>
-                  <span className="price__text">Per night</span>
+                  <span className="price__num">${booked.tripResponse ? price(booked.tripResponse.price) : ''}</span>
+                  <span className="price__text">Per seat</span>
                 </div>
                 <div className="section-block" />
-                <p className="card-text pt-3">Hotel tax 7% not included, Service charge 10% not included</p>
+                <p className="card-text pt-3">Tax 7% not included, Service charge 10% not included</p>
               </div>
             </div>{/* end card-item */}
           </div>{/* end col-lg-6 */}
@@ -93,15 +137,15 @@ function PaymentComplete() {
                   </thead>
                   <tbody>
                     <tr>
-                      <th scope="row">#121</th>
+                      <th scope="row">#{booked.id}</th>
                       <td>
                         <div className="table-content">
-                          <h3 className="title">Thu 30 Mar, 2020</h3>
+                          <h3 className="title">{booked.tripResponse ?  tranfer(booked.createBookingTime) : ''}</h3>
                         </div>
                       </td>
                       <td>
                         <div className="table-content">
-                          <h3 className="title">$88</h3>
+                          <h3 className="title">{booked.totalPrice ? price(booked.totalPrice) : ''}</h3>
                         </div>
                       </td>
                     </tr>
@@ -118,7 +162,7 @@ function PaymentComplete() {
                 <table className="table">
                   <thead>
                     <tr>
-                      <th scope="col">Room</th>
+                      <th scope="col">Seat</th>
                       <th scope="col" className="text-right">Total</th>
                     </tr>
                   </thead>
@@ -126,14 +170,16 @@ function PaymentComplete() {
                     <tr>
                       <th scope="row">
                         <div className="table-content">
-                          <p className="title pb-2">EnVision Hotel Boston</p>
-                          <p className="font-size-13 text-gray line-height-20 font-weight-medium"><span className="mr-2 color-text-2">Start Date:</span>Thu 30 Mar, 2020</p>
-                          <p className="font-size-13 text-gray line-height-20 font-weight-medium"><span className="mr-2 color-text-2">End Date:</span>Sat 01 Jun, 2020</p>
+                            {booked.seatRespone ? booked.seatRespone.map(seat=>(
+
+                        <p className="title pb-2"></p>
+
+                            )) : ''}
                         </div>
                       </th>
                       <td>
                         <div className="table-content text-right">
-                          <h3 className="title color-text">$88</h3>
+                          <h3 className="title color-text">${booked.totalPrice ? price(booked.totalPrice) : ''}</h3>
                         </div>
                       </td>
                     </tr>
@@ -145,7 +191,7 @@ function PaymentComplete() {
                       </th>
                       <td>
                         <div className="table-content text-right">
-                          <h3 className="title color-text">$88</h3>
+                          <h3 className="title color-text">${booked.totalPrice ? price(booked.totalPrice) : ''}</h3>
                         </div>
                       </td>
                     </tr>
@@ -157,7 +203,7 @@ function PaymentComplete() {
                       </th>
                       <td>
                         <div className="table-content text-right">
-                          <h3 className="title color-text">$88</h3>
+                          <h3 className="title color-text">${booked.totalPrice ? price(booked.totalPrice) : ''}</h3>
                         </div>
                       </td>
                     </tr>

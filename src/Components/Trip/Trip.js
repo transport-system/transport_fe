@@ -44,7 +44,7 @@ function Trip({ trip }) {
     
 <div class="card-item flight-card flight--card card-item-list card-item-list-2">
                     <div class="card-img">
-                        <img src="images/airline-img7.png" alt="flight-logo-img"/>
+                        <img src={trip.image}  alt="flight-logo-img"/>
                     </div>
                     <div class="card-body">
                         <div class="card-top-title d-flex justify-content-between">
