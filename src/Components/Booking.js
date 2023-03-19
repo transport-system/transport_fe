@@ -225,15 +225,31 @@ function Booking(){
                                         <label class="label-text">Leaving from</label>
                                         <div class="form-group">
                                             <span class="la la-map-marker form-icon"></span>
-                                            <input name="departure" class="form-control" type="text"  placeholder="Destination, city, or airport"/>
-                                        </div>
+                                            <select 
+                                  name='departure'
+                                  class="form-control prepend-input address-1"
+                                >
+                                  <option className='m-3' value="Sài Gòn">Sài Gòn</option>
+                                  <option value="Huế">Huế</option>
+                                  <option value="Đà Lạt">Đà Lạt</option>
+                                  <option value="Vũng Tàu">Vũng Tàu</option>
+
+                                </select>                                        </div>
                                     </div>
                                     <div class="input-box">
                                         <label class="label-text">Going to</label>
                                         <div class="form-group">
                                             <span class="la la-map-marker form-icon"></span>
-                                            <input name="arrival" class="form-control" type="text" placeholder="Destination, city, or airport"/>
-                                        </div>
+                                            <select 
+                                  name='arrival'
+                                  class="form-control prepend-input address-1"
+                                >
+                                                                      <option value="Huế">Huế</option>
+                                  <option className='m-3' value="Sài Gòn">Sài Gòn</option>
+                                  <option value="Đà Lạt">Đà Lạt</option>
+                                  <option value="Vũng Tàu">Vũng Tàu</option>
+
+                                </select>                                        </div>
                                     </div>
                                     <div class="input-box">
                                         <label class="label-text">Departure on</label>
