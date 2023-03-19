@@ -2,6 +2,9 @@
   "name": "transport_fe",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+  "node": "16.x"
+},
   "dependencies": {
     "@ant-design/compatible": "^5.1.1",
     "@emailjs/browser": "^3.10.0",
