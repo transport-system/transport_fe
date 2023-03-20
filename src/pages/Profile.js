@@ -24,7 +24,7 @@ function Profile() {
     <div>
       <div className="container mt-5">
         <div className=" card p-5">
-          {/* <img src={ava} /> */}
+          <img src={""} />
           <Avatar className="mb-5"
                 size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
                 icon={<AntDesignOutlined />}

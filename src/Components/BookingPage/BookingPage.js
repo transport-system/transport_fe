@@ -100,7 +100,8 @@ function BookingPage(){
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const showModal = () => {
-      setIsModalOpen(true);
+      selectedSeats.length > 0?
+      setIsModalOpen(true) : message.error("Please select Seat")
     };
   
     const handleOk = () => {
@@ -193,7 +194,7 @@ function BookingPage(){
                         </div>{/* end col-lg-4 */}
                         <div className="col-lg-12">
                           <div className="single-feature-titles text-center border-top border-bottom py-3 mb-4">
-                            <h3 className="title font-size-15 font-weight-medium">Total flight time:<span className="font-size-13 d-inline-block ml-1 text-gray">13 Hours 40 min</span></h3>
+                            <h3 className="title font-size-15 font-weight-medium">Total trip time:<span className="font-size-13 d-inline-block ml-1 text-gray">13 Hours 40 min</span></h3>
                           </div>
                         </div>{/* end col-lg-12 */}
                         <div className="col-lg-4 responsive-column">
@@ -213,8 +214,8 @@ function BookingPage(){
                               <i className="la la-user" />
                             </div>
                             <div className="single-feature-titles">
-                              <h3 className="title font-size-15 font-weight-medium">Flight Type</h3>
-                              <span className="font-size-13">Economy</span>
+                              <h3 className="title font-size-15 font-weight-medium">Vehicle Type</h3>
+                              <span className="font-size-13">{Trip.vehicleType}</span>
                             </div>
                           </div>{/* end single-tour-feature */}
                         </div>{/* end col-lg-4 */}
@@ -236,7 +237,7 @@ function BookingPage(){
                             </div>
                             <div className="single-feature-titles">
                               <h3 className="title font-size-15 font-weight-medium">Cancellation</h3>
-                              <span className="font-size-13">$78 / Person</span>
+                              <span className="font-size-13">10%</span>
                             </div>
                           </div>{/* end single-tour-feature */}
                         </div>{/* end col-lg-4 */}
@@ -246,8 +247,8 @@ function BookingPage(){
                               <i className="la la-exchange" />
                             </div>
                             <div className="single-feature-titles">
-                              <h3 className="title font-size-15 font-weight-medium">Flight Change</h3>
-                              <span className="font-size-13">$53 / Person</span>
+                              <h3 className="title font-size-15 font-weight-medium">Trip Change</h3>
+                              <span className="font-size-13">${Trip.price} / seat</span>
                             </div>
                           </div>{/* end single-tour-feature */}
                         </div>{/* end col-lg-4 */}
@@ -450,7 +451,7 @@ function BookingPage(){
                  
                   <div id="fare-rules" className="page-scroll">
                     <div className="single-content-item padding-top-40px padding-bottom-40px">
-                      <h3 className="title font-size-20">Fare Rules for your Flight</h3>
+                      <h3 className="title font-size-20">Fare Rules for your trip</h3>
                       <div className="fare-feature-item padding-top-30px pb-2">
                         <div className="row">
                           <div className="col-lg-4 responsive-column">
@@ -469,7 +470,7 @@ function BookingPage(){
                                 <i className="la la-check" />
                               </div>
                               <div className="single-feature-titles">
-                                <h3 className="title font-size-15 font-weight-medium">Flight Changes</h3>
+                                <h3 className="title font-size-15 font-weight-medium">Trip Changes</h3>
                               </div>
                             </div>{/* end single-tour-feature */}
                           </div>{/* end col-lg-4 */}
@@ -499,7 +500,7 @@ function BookingPage(){
                                 <i className="la la-check" />
                               </div>
                               <div className="single-feature-titles">
-                                <h3 className="title font-size-15 font-weight-medium">Flight Cancellation</h3>
+                                <h3 className="title font-size-15 font-weight-medium">Trip Cancellation</h3>
                               </div>
                             </div>{/* end single-tour-feature */}
                           </div>{/* end col-lg-4 */}
@@ -521,7 +522,7 @@ function BookingPage(){
                           <div className="card-header" id="faqHeadingFour">
                             <h2 className="mb-0">
                               <button className="btn btn-link d-flex align-items-center justify-content-end flex-row-reverse font-size-16" type="button" data-toggle="collapse" data-target="#faqCollapseFour" aria-expanded="true" aria-controls="faqCollapseFour">
-                                <span className="ml-3">Flight cancellation charges</span>
+                                <span className="ml-3">Trip cancellation charges</span>
                                 <i className="la la-minus" />
                                 <i className="la la-plus" />
                               </button>
@@ -782,9 +783,11 @@ function BookingPage(){
                     <div className="author-content">
                       <div className="d-flex">
                         <div className="author-img">
-                          <a href="#"><img src="images/team8.jpg" alt="testimonial image" /></a>
+                        <h4 className="author__title"><a href="#">{Trip.companyName}</a></h4>
+
+                          {/* <a href="#"><img src="images/team8.jpg" alt="testimonial image" /></a> */}
                         </div>
-                        <div className="author-bio">
+                        {/* <div className="author-bio">
                           <h4 className="author__title"><a href="#">royaltravelagency</a></h4>
                           <span className="author__meta">Member Since 2017</span>
                           <span className="ratings d-flex align-items-center">
@@ -798,7 +801,7 @@ function BookingPage(){
                           <div className="btn-box pt-3">
                             <a href="#" className="theme-btn theme-btn-small theme-btn-transparent">Ask a Question</a>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
                   </div>{/* end sidebar-widget */}
@@ -810,7 +813,7 @@ function BookingPage(){
       </section>
   
     
-<section className='container pb-5 bookingP'>
+{/* <section className='container pb-5 bookingP'>
             <Row className=" " gutter={[16, 24]}>
                 <Col lg={12} xs={24} sm={24} className="card">
                     <img className="card-img" src="../assets/banner_img.jpeg"  />
@@ -834,12 +837,12 @@ function BookingPage(){
 
                 </Col>
             </Row>
-            <Order isModalOpen={isModalOpen}
+     
+        </section> */}
+               <Order isModalOpen={isModalOpen}
           handleOk={handleOk}
           handleCancel={handleCancel} selectedSeats={selectedSeats} trip={Trip} totalPrice={TotalPrice}
           ></Order>
-       { isrendered &&  <Feedback companyId={Trip.companyId}/>}
-        </section>
 </div>
         
     );

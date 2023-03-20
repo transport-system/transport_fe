@@ -123,7 +123,16 @@ const Navbar = () => {
               <div
                 class="header-right d-flex align-items-center justify-content-end"
               >
- {user ?  <div class="header-right-action">
+ { localStorage.getItem("userID")  ?  <div class="header-right-action">
+                  <a
+                    href="#"
+                    class="theme-btn theme-btn-small theme-btn-transparent mr-1"
+                    data-toggle="modal"
+                    data-target="#signupPopupForm"
+                    onClick={()=>navigate("/profile")}
+                    >Hello, {user.firstname}</a >
+       
+                </div> : <div class="header-right-action">
                   <a
                     href="#"
                     class="theme-btn theme-btn-small theme-btn-transparent mr-1"
@@ -138,16 +147,7 @@ const Navbar = () => {
                     data-target="#loginPopupForm"
                     onClick={showModal}
                     >Login</button >
-                </div> : <div class="header-right-action">
-                  <a
-                    href="#"
-                    class="theme-btn theme-btn-small theme-btn-transparent mr-1"
-                    data-toggle="modal"
-                    data-target="#signupPopupForm"
-                    
-                    >Hello, {user.firstname}</a >
-       
-                </div> }
+                </div>  }
                 
               
                    {isModalOpen && <Login
@@ -168,7 +168,7 @@ const Navbar = () => {
               <a href="#" class="down-button"
                 ><i class="la la-angle-down"></i></a>
               <div class="logo">
-                <a href="index.html"
+                <a href="#"
                   >
                     SWP BUS</a>
                 <div class="menu-toggler">
@@ -185,7 +185,6 @@ const Navbar = () => {
                       <a href="#">Home <i class="la la-angle-down"></i></a>
                       <ul class="dropdown-menu-item">
                         <li><a href="/">Home - main</a></li>
-\
                       </ul>
                     </li>
                     <li>

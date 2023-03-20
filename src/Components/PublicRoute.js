@@ -22,12 +22,15 @@ function PublicRoute({children}) {
                 dispatch(SetUser(response.data.data))
                 console.log(response)
             }else{
-                // localStorage.clear();
+                localStorage.clear();
+                dispatch(SetUser({}))
 
             }
         }catch(error){
 
-            // localStorage.clear();
+            localStorage.clear();
+            dispatch(SetUser({}))
+
         }
     }
     useEffect(()=>{

@@ -34,6 +34,8 @@ function Login({isModalOpen,handleOk,handleCancel}) {
         localStorage.setItem("userID",JSON.stringify(response.data.data.id))
                 localStorage.setItem("token",response.data.data.token)
 
+        window.location.reload(false);
+
         console.log(response.data.data.id)
 
 
@@ -101,7 +103,7 @@ function Login({isModalOpen,handleOk,handleCancel}) {
         <Button type="primary" htmlType="submit" className="login-form-button">
           Log in
         </Button>
-        Or <a href="/register">register now!</a>
+        <span> Or </span> <a href="/register">register now!</a>
       </Form.Item>
     </Form>
       </div>
