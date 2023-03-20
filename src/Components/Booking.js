@@ -24,19 +24,49 @@ function Booking(){
 
             if (response.data) {
                 setTrips(response.data.list_trip_Customer);
+                message.success(`${response.data.list_trip_Customer.length} Trips Found!`);
 
 
             } else {
-                message.error(response.data.message);
+                message.error("Not Found Trips");
+
             }
         } catch (err) {
-            message.error(err.message);
+            message.error("Not Found Trips");
         }
     };
     useEffect(() => {
         getTripSearch();
     },[]);
-    return (<section>
+    return (
+    <div>
+<section className="breadcrumb-area bread-bg-6">
+        <div className="breadcrumb-wrap">
+          <div className="container">
+            <div className="row align-items-center">
+              <div className="col-lg-6">
+                <div className="breadcrumb-content">
+                  <div className="section-heading">
+                    <h2 className="sec__title text-white">Trip Booking</h2>
+                  </div>
+                </div>{/* end breadcrumb-content */}
+              </div>{/* end col-lg-6 */}
+              <div className="col-lg-6">
+                <div className="breadcrumb-list text-right">
+                  <ul className="list-items">
+                    <li><a href="/">Home</a></li>
+                    <li>Trip Booking</li>
+                  </ul>
+                </div>{/* end breadcrumb-list */}
+              </div>{/* end col-lg-6 */}
+            </div>{/* end row */}
+          </div>{/* end container */}
+        </div>{/* end breadcrumb-wrap */}
+        <div className="bread-svg-box">
+          <svg className="bread-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 10" preserveAspectRatio="none"><polygon points="100 0 50 10 0 0 0 10 100 10" /></svg>
+        </div>{/* end bread-svg */}
+      </section>{/* end breadcrumb-area */}
+      <section>
           
           <div className="container ">
           <div class="row">
@@ -310,6 +340,8 @@ function Booking(){
         </div>
     </section>
       
+    </div>
+   
     );
 
 }
