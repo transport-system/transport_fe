@@ -76,9 +76,9 @@ function BookedTrip() {
                   <table className="table">
                     <thead>
                       <tr>
-                        <th scope="col">Type</th>
+                        <th scope="col">ID</th>
                         <th scope="col">Title</th>
-                        <th scope="col">Location</th>
+                        <th scope="col">Type</th>
                         <th scope="col">Order Date</th>
                         <th scope="col">Departure Date</th>
                         <th scope="col">Price</th>
@@ -87,7 +87,7 @@ function BookedTrip() {
                       </tr>
                     </thead>
                     <tbody>
-                                    {listBooked.map(booked=>(
+                                    {listBooked.slice(0).reverse().map(booked=>(
                           <TripBooked booked={booked}/>
                   
     ))}

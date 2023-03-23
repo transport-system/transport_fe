@@ -219,8 +219,7 @@ import {useNavigate} from "react-router-dom";
                           <a
                             href="#"
                             class="theme-btn w-100 text-center margin-top-20px"
-                            >Search</a
-                          >
+                            >Search</a>
                         </div>
                       </form>
                     </div>
@@ -359,7 +358,7 @@ import {useNavigate} from "react-router-dom";
                       <span className="price__from">From</span>
                       <span className="price__num">10.000VNĐ</span>
                     </p>
-                    <a href="/booking/" className="btn-text">Read details<i className="la la-angle-right" /></a>
+                    <a href="http://localhost:3000/booking?departure=Hu%E1%BA%BF&arrival=S%C3%A0i+G%C3%B2n&date=2023-03-28" className="btn-text">Read details<i className="la la-angle-right" /></a>
                   </div>
                 </div>
               </div>
@@ -370,24 +369,22 @@ import {useNavigate} from "react-router-dom";
               <div className="card-item flight-card">
                 <div className="card-img">
                   <a href="flight-single.html" className="d-block">
-                    <img height={210}  src="https://vtv1.mediacdn.vn/thumb_w/650/2022/11/30/b22-16697994119911201542911-crop-1669799574167932517806.jpeg" alt="destination-img" />
-                    <span className="badge">Spain</span>
-                    <span className="badge badge-ribbon">Save 29%</span>
+                    <img height={210} src="https://reviewvilla.vn/wp-content/uploads/2022/06/dia-diem-du-lich-Vung-Tau-15-1024x523.jpg" alt="destination-img" />
+                    <span className="badge">Sài Gòn</span>
                   </a>
                 </div>
                 <div className="card-body">
-                  <img src="images/united-airline.png" alt="" className="flight-logo" />
+                  <img src="images/american-airline.png" alt="" className="flight-logo" />
                   <h3 className="card-title">
-                    <a href="flight-single.html">Dubai to Spain</a>
+                    <a href="flight-single.html">Huế to Sài Gòn</a>
                   </h3>
-                  <p className="card-meta">Round-trip Flight</p>
+                  <p className="card-meta">One way </p>
                   <div className="card-price d-flex align-items-center justify-content-between">
                     <p>
                       <span className="price__from">From</span>
-                      <span className="price__num">$570.00</span>
-                      <span className="price__num before-price color-text-3">$599.00</span>
+                      <span className="price__num">10.000VNĐ</span>
                     </p>
-                    <a href="flight-single.html" className="btn-text">Read details<i className="la la-angle-right" /></a>
+                    <a href="http://localhost:3000/booking?departure=Hu%E1%BA%BF&arrival=S%C3%A0i+G%C3%B2n&date=2023-03-28" className="btn-text">Read details<i className="la la-angle-right" /></a>
                   </div>
                 </div>
               </div>
@@ -398,22 +395,22 @@ import {useNavigate} from "react-router-dom";
               <div className="card-item flight-card">
                 <div className="card-img">
                   <a href="flight-single.html" className="d-block">
-                    <img height={210}  src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Vung_Tau%2C_Viet_Nam_2021.jpg" alt="destination-img" />
-                    <span className="badge">Australia</span>
+                    <img height={210} src="https://reviewvilla.vn/wp-content/uploads/2022/06/dia-diem-du-lich-Vung-Tau-15-1024x523.jpg" alt="destination-img" />
+                    <span className="badge">Sài Gòn</span>
                   </a>
                 </div>
                 <div className="card-body">
-                  <img src="images/air-france.png" alt="" className="flight-logo" />
+                  <img src="images/american-airline.png" alt="" className="flight-logo" />
                   <h3 className="card-title">
-                    <a href="flight-single.html">Bangkok to Australia</a>
+                    <a href="flight-single.html">Huế to Sài Gòn</a>
                   </h3>
-                  <p className="card-meta">One way Flight</p>
+                  <p className="card-meta">One way </p>
                   <div className="card-price d-flex align-items-center justify-content-between">
                     <p>
                       <span className="price__from">From</span>
-                      <span className="price__num">$299.00</span>
+                      <span className="price__num">10.000VNĐ</span>
                     </p>
-                    <a href="flight-single.html" className="btn-text">Read details<i className="la la-angle-right" /></a>
+                    <a href="http://localhost:3000/booking?departure=Hu%E1%BA%BF&arrival=S%C3%A0i+G%C3%B2n&date=2023-03-28" className="btn-text">Read details<i className="la la-angle-right" /></a>
                   </div>
                 </div>
               </div>

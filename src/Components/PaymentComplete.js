@@ -3,15 +3,36 @@ import { useNavigate, useParams } from 'react-router-dom';
 import bookApi from '../api/bookApi';
 import { message } from 'antd';
 import QRCode from 'react-qr-code';
+import userApi from '../api/userApi';
 
 function PaymentComplete() {
     const params = useParams();
     const [booked,setBooked] =useState({});
     const navigate = useNavigate()
+
+    const handleRefund = async () =>{
+      try {
+        const response = await userApi.requestRefund(params.id);
+        console.log(response.data);
+        
+
+        if (response.data) {
+            message.success("Request refund success!!")
+            
+        } else {
+            message.error(response.data.message);
+
+        }
+    } catch (err) {
+        message.error(err.message);
+
+    }
+    }
     const getBooked = async () => {
         try {
             const response = await bookApi.getBookedById(params.id);
             console.log(response.data);
+            
     
             if (response.data) {
               setBooked(response.data);
@@ -25,6 +46,7 @@ function PaymentComplete() {
     
         }
     };
+
     useEffect(() => {
     
       getBooked();
@@ -69,7 +91,7 @@ function PaymentComplete() {
                     <p className="pt-2 color-text-2">Booking Completed!</p>
                   </li> : <li className="step-bar flex-grow-1 step-bar-inactive">
                     <span className="icon-element">3</span>
-                    <p className="pt-2 color-text-2">Booking Rejected!</p>
+                    <p className="pt-2 color-text-2">Booking  {booked.status}!</p>
                   </li>}
                 </ul>
               </div>
@@ -80,14 +102,14 @@ function PaymentComplete() {
      {  booked.status === 'DONE'  ?         <div className="d-flex align-items-center">
                   <i className="la la-check icon-element flex-shrink-0 mr-3 ml-0" />
                   <div>
-                    <h3 className="title pb-1">Thanks {booked.c_Firstname}</h3>
+                    <h3 className="title pb-1">Thanks {booked.c_Firstname ? booked.c_Firstname : booked.firstname}</h3>
                     <h3 className="title">Your booking {booked.id} ID is confirmed.</h3>
                     </div>
                 </div> : 
              <div className="d-flex align-items-center">
              <div>
-               <h3 className="title pb-1">Sorry {booked.c_Firstname}</h3>
-               <h3 className="title">Your booking {booked.id} ID is Recjected.</h3>
+               <h3 className="title pb-1">Hi, {booked.c_Firstname}</h3>
+               <h3 className="title">Your booking {booked.id} ID is {booked.status}.</h3>
                </div>
            </div> }
                  
@@ -133,7 +155,7 @@ function PaymentComplete() {
     <QRCode
     size={300}
     style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-    value={`/paymentcomplete/${booked.id}`}
+    value={`https://swp-demo-main.vercel.app/paymentcomplete/${booked.id}`}
     viewBox={`0 0 256 256`}
     />
 </div>
@@ -238,10 +260,10 @@ function PaymentComplete() {
           </div>{/* end col-lg-6 */}
         </div>{/* end row */}
       </div>
-                <div className="btn-box pb-4">
+                {/* <div className="btn-box pb-4">
                   <a href="#" className="theme-btn mb-2 mr-2">Make changes to your booking</a>
                   <a href="#" className="theme-btn mb-2 theme-btn-transparent">Make your booking in the app</a>
-                </div>
+                </div> */}
                 <h3 className="title"><a href="#" className="text-black">{booked.tripResponse ? booked.companyName : ''}</a></h3>
                 {/* <p className="py-1"><a href="#" className="text-color">Click for directions on Google maps <i className="la la-arrow-right" /></a></p> */}
                 <p><strong className="text-black mr-1">Email:</strong>{booked.tripResponse ? booked.companyEmail : ''}</p>
@@ -250,9 +272,11 @@ function PaymentComplete() {
                   <li><span className="text-black font-weight-bold">Prepayment</span>You will be charged a prepayment of the total price at any time.</li>
                   <li><span className="text-black font-weight-bold">Cancellation cost</span>10% Total fee</li>
                 </ul>
-                <div className="btn-box">
-                  <a href="#" className="theme-btn border-0 text-white bg-7">Cancel your booking</a>
-                </div>
+
+                {localStorage.getItem("userID") ?  <div className="btn-box">
+                  <button onClick={()=>handleRefund()} className="theme-btn border-0 text-white bg-7 ">Cancel your booking</button>
+                </div> : ''}
+               
               </div>{/* end card-item */}
             </div>
           </div>{/* end payment-card */}

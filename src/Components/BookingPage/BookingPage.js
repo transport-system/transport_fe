@@ -5,10 +5,13 @@ import tripApi from "../../api/tripApi";
 import {Button, Col, message, Row} from "antd";
 import {useNavigate, useParams} from "react-router-dom"; 
 import SeatSelection from '../SeatSelection';
+import moment from "moment/moment";
+
 //  import "./bookingPage.css"
 import Order from './orderForm/Order';
 import ModalOrder from './orderForm/ModalOrder';
 import Feedback from '../feedbackPage/Feedback';
+import PaypalPay from '../PaypalPay';
 function BookingPage(){
     const params =useParams();
     const dispatch = useDispatch();
@@ -92,7 +95,12 @@ function BookingPage(){
         style: "currency",
         currency: "VND",
       });
-
+      //
+      const dateConverter = (startDate, timeEnd) => {
+        const newStartDate= new Date(startDate);
+        const newEndDate=new Date(timeEnd);
+        let result=moment(newStartDate).diff(newEndDate,'Minutes')
+        return result   }
     //order
     const [isrendered,setisrendered]=useState(false);
 
@@ -183,7 +191,7 @@ function BookingPage(){
                         <div className="col-lg-4 col-sm-4">
                           <div className="single-feature-titles text-center mb-3">
                             <i className="la la-clock-o text-color font-size-22" />
-                            <span className="font-size-13 mt-n2">1H 40M</span>
+                            <span className="font-size-13 mt-n2">{dateConverter(timeArrival,timeDeparture)} mins</span>
                           </div>
                         </div>{/* end col-lg-4 */}
                         <div className="col-lg-4 col-sm-4">
@@ -194,7 +202,7 @@ function BookingPage(){
                         </div>{/* end col-lg-4 */}
                         <div className="col-lg-12">
                           <div className="single-feature-titles text-center border-top border-bottom py-3 mb-4">
-                            <h3 className="title font-size-15 font-weight-medium">Total trip time:<span className="font-size-13 d-inline-block ml-1 text-gray">13 Hours 40 min</span></h3>
+                            <h3 className="title font-size-15 font-weight-medium">Total trip time:<span className="font-size-13 d-inline-block ml-1 text-gray">{dateConverter(timeArrival,timeDeparture)} mins</span></h3>
                           </div>
                         </div>{/* end col-lg-12 */}
                         <div className="col-lg-4 responsive-column">
@@ -316,138 +324,7 @@ function BookingPage(){
                     </div>{/* end single-content-item */}
                     <div className="section-block" />
                   </div>{/* end description */}
-                  <div id="inflight-features" className="page-scroll">
-                    <div className="single-content-item padding-top-40px padding-bottom-30px">
-                      <h3 className="title font-size-20">Inflight Features</h3>
-                      <p className="pt-3">Maecenas vitae turpis condimentum metus tincidunt semper bibendum ut orci. Donec eget accumsan est. Duis laoreet sagittis elit et vehicula. Cras viverra posuere condimentum. Donec urna arcu, venenatis quis augue sit amet, mattis gravida nunc.</p>
-                      <div className="inflight-content-item pt-4">
-                        <div className="row">
-                          <div className="col-lg-4 responsive-column">
-                            <div className="single-tour-feature d-flex align-items-center mb-3">
-                              <div className="single-feature-icon icon-element ml-0 flex-shrink-0 mr-3">
-                                <i className="la la-wifi" />
-                              </div>
-                              <div className="single-feature-titles">
-                                <h3 className="title font-size-15 font-weight-medium">WI-FI</h3>
-                              </div>
-                            </div>{/* end single-tour-feature */}
-                          </div>{/* end col-lg-4 */}
-                          <div className="col-lg-4 responsive-column">
-                            <div className="single-tour-feature d-flex align-items-center mb-3">
-                              <div className="single-feature-icon icon-element ml-0 flex-shrink-0 mr-3">
-                                <i className="la la-music" />
-                              </div>
-                              <div className="single-feature-titles">
-                                <h3 className="title font-size-15 font-weight-medium">Entertainment</h3>
-                              </div>
-                            </div>{/* end single-tour-feature */}
-                          </div>{/* end col-lg-4 */}
-                          <div className="col-lg-4 responsive-column">
-                            <div className="single-tour-feature d-flex align-items-center mb-3">
-                              <div className="single-feature-icon icon-element ml-0 flex-shrink-0 mr-3">
-                                <i className="la la-television" />
-                              </div>
-                              <div className="single-feature-titles">
-                                <h3 className="title font-size-15 font-weight-medium">Television</h3>
-                              </div>
-                            </div>{/* end single-tour-feature */}
-                          </div>{/* end col-lg-4 */}
-                          <div className="col-lg-4 responsive-column">
-                            <div className="single-tour-feature d-flex align-items-center mb-3">
-                              <div className="single-feature-icon icon-element ml-0 flex-shrink-0 mr-3">
-                                <i className="la la-tree" />
-                              </div>
-                              <div className="single-feature-titles">
-                                <h3 className="title font-size-15 font-weight-medium">Air Conditioning</h3>
-                              </div>
-                            </div>{/* end single-tour-feature */}
-                          </div>{/* end col-lg-4 */}
-                          <div className="col-lg-4 responsive-column">
-                            <div className="single-tour-feature d-flex align-items-center mb-3">
-                              <div className="single-feature-icon icon-element ml-0 flex-shrink-0 mr-3">
-                                <i className="la la-glass" />
-                              </div>
-                              <div className="single-feature-titles">
-                                <h3 className="title font-size-15 font-weight-medium">Drink</h3>
-                              </div>
-                            </div>{/* end single-tour-feature */}
-                          </div>{/* end col-lg-4 */}
-                          <div className="col-lg-4 responsive-column">
-                            <div className="single-tour-feature d-flex align-items-center mb-3">
-                              <div className="single-feature-icon icon-element ml-0 flex-shrink-0 mr-3">
-                                <i className="la la-gamepad" />
-                              </div>
-                              <div className="single-feature-titles">
-                                <h3 className="title font-size-15 font-weight-medium">Games</h3>
-                              </div>
-                            </div>{/* end single-tour-feature */}
-                          </div>{/* end col-lg-4 */}
-                          <div className="col-lg-4 responsive-column">
-                            <div className="single-tour-feature d-flex align-items-center mb-3">
-                              <div className="single-feature-icon icon-element ml-0 flex-shrink-0 mr-3">
-                                <i className="la la-coffee" />
-                              </div>
-                              <div className="single-feature-titles">
-                                <h3 className="title font-size-15 font-weight-medium">Coffee</h3>
-                              </div>
-                            </div>{/* end single-tour-feature */}
-                          </div>{/* end col-lg-4 */}
-                          <div className="col-lg-4 responsive-column">
-                            <div className="single-tour-feature d-flex align-items-center mb-3">
-                              <div className="single-feature-icon icon-element ml-0 flex-shrink-0 mr-3">
-                                <i className="la la-glass" />
-                              </div>
-                              <div className="single-feature-titles">
-                                <h3 className="title font-size-15 font-weight-medium">Wines</h3>
-                              </div>
-                            </div>{/* end single-tour-feature */}
-                          </div>{/* end col-lg-4 */}
-                          <div className="col-lg-4 responsive-column">
-                            <div className="single-tour-feature d-flex align-items-center mb-3">
-                              <div className="single-feature-icon icon-element ml-0 flex-shrink-0 mr-3">
-                                <i className="la la-shopping-cart" />
-                              </div>
-                              <div className="single-feature-titles">
-                                <h3 className="title font-size-15 font-weight-medium">Shopping</h3>
-                              </div>
-                            </div>{/* end single-tour-feature */}
-                          </div>{/* end col-lg-4 */}
-                          <div className="col-lg-4 responsive-column">
-                            <div className="single-tour-feature d-flex align-items-center mb-3">
-                              <div className="single-feature-icon icon-element ml-0 flex-shrink-0 mr-3">
-                                <i className="la la-cutlery" />
-                              </div>
-                              <div className="single-feature-titles">
-                                <h3 className="title font-size-15 font-weight-medium">Food</h3>
-                              </div>
-                            </div>{/* end single-tour-feature */}
-                          </div>{/* end col-lg-4 */}
-                          <div className="col-lg-4 responsive-column">
-                            <div className="single-tour-feature d-flex align-items-center mb-3">
-                              <div className="single-feature-icon icon-element ml-0 flex-shrink-0 mr-3">
-                                <i className="la la-bed" />
-                              </div>
-                              <div className="single-feature-titles">
-                                <h3 className="title font-size-15 font-weight-medium">Comfort</h3>
-                              </div>
-                            </div>{/* end single-tour-feature */}
-                          </div>{/* end col-lg-4 */}
-                          <div className="col-lg-4 responsive-column">
-                            <div className="single-tour-feature d-flex align-items-center mb-3">
-                              <div className="single-feature-icon icon-element ml-0 flex-shrink-0 mr-3">
-                                <i className="la la-photo" />
-                              </div>
-                              <div className="single-feature-titles">
-                                <h3 className="title font-size-15 font-weight-medium">Magazines</h3>
-                              </div>
-                            </div>{/* end single-tour-feature */}
-                          </div>{/* end col-lg-4 */}
-                        </div>{/* end row */}
-                      </div>{/* end inflight-content-item */}
-                    </div>{/* end single-content-item */}
-                    <div className="section-block" />
-                  </div>{/* end inflight-features */}
-                
+          
                  
                   <div id="fare-rules" className="page-scroll">
                     <div className="single-content-item padding-top-40px padding-bottom-40px">
@@ -593,7 +470,7 @@ function BookingPage(){
                         <div className="row align-items-center">
                           <div className="col-lg-4">
                             <div className="review-summary">
-                              <h2>{Trip.rating}<span>/5</span></h2>
+                              <h2>{Trip.companyRating}<span>/5</span></h2>
                               <p>Excellent</p>
                               <span>Based on 4 reviews</span>
                             </div>
@@ -678,7 +555,7 @@ function BookingPage(){
                     <div className="single-content-item padding-top-40px">
                     <Button
               onClick={()=>{isrendered ? setisrendered(false) : setisrendered(true)}}
-            >View Feedback</Button>                      { isrendered &&  <Feedback companyId={Trip.companyId}/>}
+            >View Feedback</Button>                      { Trip.companyId &&  <Feedback companyId={Trip.companyId}/>}
 
                      {/* end comments-list */}
                      {/* end comment-forum */}
@@ -702,6 +579,7 @@ function BookingPage(){
                             <span> {selectedSeats.join(", ")}</span>
 
                           </div>
+                          
                                     </div>
                     </div>{/* end sidebar-widget-item */}
 
@@ -773,8 +651,8 @@ function BookingPage(){
                     <p className="font-size-14 line-height-24">Do not hesitate to give us a call. We are an expert team and we are happy to talk to you.</p>
                     <div className="sidebar-list pt-3">
                       <ul className="list-items">
-                        <li><i className="la la-phone icon-element mr-2" /><a href="#">+ 61 23 8093 3400</a></li>
-                        <li><i className="la la-envelope icon-element mr-2" /><a href="mailto:info@trizen.com">info@trizen.com</a></li>
+                        <li><i className="la la-phone icon-element mr-2" /><a href="#">0338148702</a></li>
+                        <li><i className="la la-envelope icon-element mr-2" /><a href="mailto:info@trizen.com">dtgkhang99@gmail.com</a></li>
                       </ul>
                     </div>{/* end sidebar-list */}
                   </div>{/* end sidebar-widget */}

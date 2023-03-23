@@ -131,10 +131,20 @@ const Navbar = () => {
                     data-target="#signupPopupForm"
                     onClick={()=>navigate("/profile")}
                     >Hello, {user.firstname}</a >
-       
-                </div> : <div class="header-right-action">
-                  <a
+                    <button
                     href="#"
+                    class="theme-btn theme-btn-small"
+                    data-toggle="modal"
+                    data-target="#loginPopupForm"
+                    onClick={()=>{localStorage.clear()
+                      window.location.reload(false);}
+                    }
+                    >Log out</button >
+                </div> 
+                
+                : <div class="header-right-action">
+                  <a
+                    onClick={()=>{navigate("/register")}}
                     class="theme-btn theme-btn-small theme-btn-transparent mr-1"
                     data-toggle="modal"
                     data-target="#signupPopupForm"
@@ -187,16 +197,7 @@ const Navbar = () => {
                         <li><a href="/">Home - main</a></li>
                       </ul>
                     </li>
-                    <li>
-                      <a href="#">Tour <i class="la la-angle-down"></i></a>
-                      <ul class="dropdown-menu-item">
-                        <li>
-                          <a href="tour-fullwidth.html">Tour Full width</a>
-                        </li>
-                        <li><a href="tour-list.html">Tour List</a></li>
-
-                      </ul>
-                    </li>
+                   
                   </ul>
                 </nav>
               </div>

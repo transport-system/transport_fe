@@ -67,19 +67,19 @@ function Trip({ trip }) {
                             <div class="flight-time pb-3">
                                 <div class="flight-time-item take-off d-flex">
                                     <div class="flex-shrink-0 mr-2">
-                                        <i class="la la-plane"></i>
+                                        {/* <i class="la la-plane"></i> */}
                                     </div>
                                     <div>
-                                        <h3 class="card-title font-size-15 font-weight-medium mb-0">Take off</h3>
+                                        <h3 class="card-title font-size-15 font-weight-medium mb-0">Departure</h3>
                                         <p class="card-meta font-size-14">{timeDeparture}</p>
                                     </div>
                                 </div>
                                 <div class="flight-time-item landing d-flex">
                                     <div class="flex-shrink-0 mr-2">
-                                        <i class="la la-plane"></i>
+                                        {/* <i class="la la-plane"></i> */}
                                     </div>
                                     <div>
-                                        <h3 class="card-title font-size-15 font-weight-medium mb-0">Landing</h3>
+                                        <h3 class="card-title font-size-15 font-weight-medium mb-0">Arrival</h3>
                                         <p class="card-meta font-size-14">{timeArrival}</p>
                                     </div>
                                 </div>

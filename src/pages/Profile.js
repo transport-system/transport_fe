@@ -24,11 +24,11 @@ function Profile() {
     <div>
       <div className="container mt-5">
         <div className=" card p-5">
-          <img src={""} />
+          {/* <img src={""} />
           <Avatar className="mb-5"
                 size={{ xs: 24, sm: 32, md: 40, lg: 64, xl: 80, xxl: 100 }}
                 icon={<AntDesignOutlined />}
-              />
+              /> */}
           <Descriptions title="User Info">
 
             <Descriptions.Item label="UserName">
@@ -51,10 +51,10 @@ function Profile() {
           </Descriptions>
           <div className="container right">
           <button className="btn btn-primary m-2" onClick={showModal}>
-        Cập nhật Profile
+        Update Profile
       </button>
       <button className="btn btn-primary m-2" onClick={()=>navigate("/booked")}>
-        Xem vé đã mua
+        View booked
       </button>
           </div>
 

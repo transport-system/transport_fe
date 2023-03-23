@@ -31,6 +31,9 @@ function Order({
       if (response.data) {
         message.success(response.data.message);
         navigate(`/checkout/${response.data.id}`);
+
+      
+
       } else {
         message.error("Add Fail!");
         console.log(response);
@@ -57,7 +60,7 @@ function Order({
 
       if (response.data) {
         message.success(response.data.message);
-        navigate(`/cart/${response.data.id}`);
+        navigate(`/checkout/${response.data.id}`);
       } else {
         message.error("Add Fail!");
         console.log(response);
@@ -69,7 +72,7 @@ function Order({
   return (
     <Modal
       width={600}
-      title="Thanh toán"
+      title="Payment"
       footer={null}
       open={isModalOpen}
       onOk={handleOk}
@@ -138,22 +141,22 @@ function Order({
               htmlType="submit"
               className="login-form-button"
             >
-              Thanh toán
+              PAYMENT
             </Button>
           </Form.Item>
         </Form>
       ) : (
         <div className="m-3 p-2">
-          <h5>Bạn đồng ý thanh toán </h5>
-          <p>ghế đã đặt: {selectedSeats.join(", ")}</p>
-          <p>Tổng tiền: {totalPrice}</p>
+          <h5>Confirm your order </h5>
+          <p>Seats: {selectedSeats.join(", ")}</p>
+          <p>Total: {totalPrice}</p>
           <Button
             type="primary"
             htmlType="submit"
             className="btn"
             onClick={() => handleCart()}
           >
-            Xác nhận
+            Check Out
           </Button>
         </div>
       )}

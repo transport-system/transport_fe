@@ -1,7 +1,13 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
+import { useNavigate } from 'react-router-dom';
+import { Rate, Modal,message,Input } from 'antd';
+import Form from 'antd/es/form/Form';
+import userApi from '../../api/userApi';
 function TripBooked({booked}) {
+  const [form] = Form.useForm();
+
     const TotalPrice = ((booked.totalPrice)).toLocaleString("it-IT", {
         style: "currency",
         currency: "VND",
@@ -17,6 +23,38 @@ function TripBooked({booked}) {
            return newTime;
        }
        const navigate = useNavigate();
+       const [isModalOpen, setIsModalOpen] = useState(false);
+       const showModal = () => {
+         setIsModalOpen(true);
+       };
+       const handleSubmit = (values) => {
+        console.log(values)
+        values.bookingId= booked.id
+        values.companyId = 4
+        values.accountId = localStorage.getItem('userID')
+        postFeedback(values)
+      }  
+      const postFeedback = async (values) => {
+        try {
+            const response = await userApi.rateCompany(values);
+            console.log(response.data);
+
+            if (response.data) {
+message.success("Send Success!")
+            } else {
+                message.error("Send Fail!");
+
+            }
+        } catch (err) {
+            message.error(err.message);
+
+        }
+    };
+      
+      const handleCancel = () => {
+        setIsModalOpen(false)
+        form.resetFields()
+      };
   return (
     <tr>
     <th scope="row">#{booked.id}</th>
@@ -32,11 +70,29 @@ function TripBooked({booked}) {
     {        booked.status      ==="DONE" ?                     <td><span className="badge badge-success py-1 px-2">{booked.status}</span></td>
 :             <td><span class="badge badge-warning py-1 px-2">{booked.status}</span></td>
 }
-    <td>
-      <div className="table-content">
+    <td >
+      <div className="table-content m-1 ">
         <button className="theme-btn theme-btn-small" onClick={()=>navigate(`/paymentcomplete/${booked.id}`)}>View Detail</button>
+       
       </div>
+      <div className="table-content m-1 ">
+
+      <button className="theme-btn theme-btn-small" type="primary" onClick={showModal}>
+        Review
+      </button>
+      </div>
+
     </td>
+    <Modal title="Feedback" open={isModalOpen} onOk={form.submit} onCancel={handleCancel}>
+       <Form form={form} onFinish={handleSubmit}>
+       <Form.Item label="Rate" name="ratingScore">
+                    <Rate/>
+                </Form.Item>
+       <Form.Item label="detail" name="detail">
+                    <Input />
+                </Form.Item>
+       </Form>
+      </Modal>
   </tr>
   //   <div><div class="card p-2 m-2">
   //   <div class="card-body">

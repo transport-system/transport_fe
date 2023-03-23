@@ -5,6 +5,7 @@ import { useParams } from 'react-router';
 import tripApi from '../../api/tripApi';
 import { HideLoading, ShowLoading } from '../../redux/alertsSlice';
 import CommentFeedback from './Comment';
+import PaypalPay from '../PaypalPay';
 // import Comment from './Comment';
 
 function Feedback({companyId}) {
@@ -41,6 +42,7 @@ function Feedback({companyId}) {
                     {listFeedback.map(feedback=>(
                         <Col lg={24} xs={24} sm={24}>
                             <CommentFeedback feedback={feedback}/>
+{/* <PaypalPay/> */}
                         </Col>
                     ))}
                 </Row></div>

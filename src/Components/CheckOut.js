@@ -1,7 +1,10 @@
+import PaypalPay from "./PaypalPay";
 import { Button, Form, Input, message } from "antd";
 import React, { useEffect, useState } from "react";
 import { useParams,useNavigate } from "react-router";
 import bookApi from '../api/bookApi';
+import paymentApi from "../api/paymentApi";
+// import PaypalPay from "./PaypalPay";
 
 function CheckOut() {
     const params = useParams();
@@ -25,7 +28,7 @@ function CheckOut() {
         }
     };
     useEffect(() => {
-    
+    console.log(booked.totalPrice)
       getBooked();
     
     },[]);
@@ -35,18 +38,196 @@ function CheckOut() {
       });
     return newPrice
     }
-    const handleSubmit = async (e) => {
+
+  
+    const handlePayLater = async (e) => {
         e.preventDefault();
 
         const bookingId = params.id
-        const method = "card"
+        const method = "CASH"
+        const data ={bookingId,method}
+        
         try {
-          const response = await bookApi.payBook({bookingId,method});
+          const response = await paymentApi.payLater(data);
           console.log(response);
           console.log();
     
           if (response.data) {
             message.success(response.data.message);
+            const sEmail = booked.c_Email ? booked.c_Email:  booked.email
+            window.Email.send({
+              Host: "smtp.elasticemail.com",
+              Username : "kgzeref@gmail.com",
+              Password : "44E27D2678B035AAC846BC9057D6A2FF67F6",
+              To : `${sEmail}`,
+              From : "kgzeref@gmail.com",
+              Subject : "confirm payment",
+              Body : `
+              <!DOCTYPE html>
+              <html lang="en">
+                <head>
+                  <meta charset="UTF-8" />
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+                  <title>Invoice</title>
+                  <link
+                    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap"
+                    rel="stylesheet"
+                  />
+                  <style>
+                    @media print {
+                      @page {
+                        size: A3;
+                      }
+                    }
+                    ul {
+                      padding: 0;
+                      margin: 0 0 1rem 0;
+                      list-style: none;
+                    }
+                    body {
+                      font-family: "Inter", sans-serif;
+                      margin: 0;
+                    }
+                    table {
+                      width: 100%;
+                      border-collapse: collapse;
+                    }
+                    table,
+                    table th,
+                    table td {
+                      border: 1px solid silver;
+                    }
+                    table th,
+                    table td {
+                      text-align: right;
+                      padding: 8px;
+                    }
+                    h1,
+                    h4,
+                    p {
+                      margin: 0;
+                    }
+              
+                    .container {
+                      padding: 20px 0;
+                      width: 1000px;
+                      max-width: 90%;
+                      margin: 0 auto;
+                    }
+              
+                    .inv-title {
+                      padding: 10px;
+                      border: 1px solid silver;
+                      text-align: center;
+                      margin-bottom: 30px;
+                    }
+              
+                    .inv-logo {
+                      width: 150px;
+                      display: block;
+                      margin: 0 auto;
+                      margin-bottom: 40px;
+                    }
+              
+                    /* header */
+                    .inv-header {
+                      display: flex;
+                      margin-bottom: 20px;
+                    }
+                    .inv-header > :nth-child(1) {
+                      flex: 2;
+                    }
+                    .inv-header > :nth-child(2) {
+                      flex: 1;
+                    }
+                    .inv-header h2 {
+                      font-size: 20px;
+                      margin: 0 0 0.3rem 0;
+                    }
+                    .inv-header ul li {
+                      font-size: 15px;
+                      padding: 3px 0;
+                    }
+              
+                    /* body */
+                    .inv-body table th,
+                    .inv-body table td {
+                      text-align: left;
+                    }
+                    .inv-body {
+                      margin-bottom: 30px;
+                    }
+              
+                    /* footer */
+                    .inv-footer {
+                      display: flex;
+                      flex-direction: row;
+                    }
+                    .inv-footer > :nth-child(1) {
+                      flex: 2;
+                    }
+                    .inv-footer > :nth-child(2) {
+                      flex: 1;
+                    }
+                  </style>
+                </head>
+                <body>
+                  <div class="container">
+                    <div class="inv-title">
+                      <h1>Invoice # ${booked.id}</h1>
+                    </div>
+                    <div class="inv-header">
+                      <div>
+                        <h2>SWP Team</h2>
+                        <ul>
+                          <li>Bus Booking</li>
+                          <li>Ho Chi Minh</li>
+                          <li>0338148702 |dtgkhang99@gmail.com</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <table>
+                          <tr>
+                            <th>Due Date</th>
+                            <td>${tranfer(booked.createBookingTime)}</td>
+                          </tr>
+                    
+                          <tr>
+                            <th>Total</th>
+                            <td>${ price(booked.totalPrice)}</td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="inv-body">
+                 
+                    </div>
+                    <div class="inv-footer">
+                      <div><!-- required --></div>
+                      <div>
+                        <table>
+                          <tr>
+                            <th>Sub total</th>
+                            <td>200</td>
+                          </tr>
+                          <tr>
+                            <th>Sales tax</th>
+                            <td>200</td>
+                          </tr>
+                          <tr>
+                            <th>Grand total</th>
+                            <td>1200</td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </body>
+              </html>              `
+          }).then(
+            message => alert(message)
+          );
             navigate(`/paymentcomplete/${response.data.id}`)
     
           } else {
@@ -59,6 +240,8 @@ function CheckOut() {
         }
       }; 
     
+
+      
       const tranfer=(time)=>{
        const newTime = new Date(time).toLocaleString("en-US", {
             month: "short",
@@ -92,7 +275,7 @@ START BOOKING AREA
                           <label className="label-text">First Name</label>
                           <div className="form-group">
                             <span className="la la-user form-icon" />
-                            <div className="form-control">{booked.c_Firstname}</div>
+                            <div className="form-control">{booked.c_Firstname ? booked.c_Firstname : booked.firstname}</div>
                           </div>
                         </div>
                       </div>{/* end col-lg-6 */}
@@ -101,7 +284,7 @@ START BOOKING AREA
                           <label className="label-text">Last Name</label>
                           <div className="form-group">
                             <span className="la la-user form-icon" />
-                            <div className="form-control">{booked.c_Lastname}</div>
+                            <div className="form-control">{booked.c_Lastname ? booked.c_Lastname : booked.lastname}</div>
                           </div>
                         </div>
                       </div>{/* end col-lg-6 */}
@@ -110,7 +293,7 @@ START BOOKING AREA
                           <label className="label-text">Your Email</label>
                           <div className="form-group">
                             <span className="la la-envelope-o form-icon" />
-                            <div className="form-control">{booked.c_Email}</div>
+                            <div className="form-control">{booked.c_Email? booked.c_Email: booked.email}</div>
                           </div>
                         </div>
                       </div>{/* end col-lg-6 */}
@@ -119,7 +302,7 @@ START BOOKING AREA
                           <label className="label-text">Phone Number</label>
                           <div className="form-group">
                             <span className="la la-phone form-icon" />
-                            <div className="form-control">{booked.c_Phone}</div>
+                            <div className="form-control">{booked.c_Phone ? booked.c_Phone : booked.phone}</div>
                           </div>
                         </div>
                       </div>{/* end col-lg-6 */}
@@ -138,169 +321,18 @@ START BOOKING AREA
                   </form>
                 </div>{/* end contact-form-action */}
               </div>{/* end form-content */}
+
+         
             </div>{/* end form-box */}
             <div className="form-box">
-              <div className="form-title-wrap">
-                <h3 className="title">Your Card Information</h3>
-              </div>{/* form-title-wrap */}
-              <div className="form-content">
-                <div className="section-tab check-mark-tab text-center pb-4">
-                  <ul className="nav nav-tabs justify-content-center" id="myTab" role="tablist">
-                    <li className="nav-item">
-                      <a className="nav-link active" id="credit-card-tab" data-toggle="tab" href="#credit-card" role="tab" aria-controls="credit-card" aria-selected="false">
-                        <i className="la la-check icon-element" />
-                        <img src="images/payment-img.png" alt="" />
-                        <span className="d-block pt-2">Payment with credit card</span>
-                      </a>
-                    </li>
-                    <li className="nav-item">
-                      <a className="nav-link" id="paypal-tab" data-toggle="tab" href="#paypal" role="tab" aria-controls="paypal" aria-selected="true">
-                        <i className="la la-check icon-element" />
-                        <img src="images/paypal.png" alt="" />
-                        <span className="d-block pt-2">Payment with PayPal</span>
-                      </a>
-                    </li>
- 
-                  </ul>
-                </div>{/* end section-tab */}
-                <div className="tab-content">
-                  <div className="tab-pane fade show active" id="credit-card" role="tabpanel" aria-labelledby="credit-card-tab">
-                    <div className="contact-form-action">
-                      <form onSubmit={handleSubmit}>
-                        <div className="row">
-                          <div className="col-lg-6">
-                            <div className="input-box">
-                              <label className="label-text">Card Holder Name</label>
-                              <div className="form-group">
-                                <span className="la la-credit-card form-icon" />
-                                <input className="form-control" type="text" name="text" placeholder="Card holder name" />
-                              </div>
+            <div className="btn-box">
+{    booked.totalPrice ?        <PaypalPay totalPriceUSD={(booked.totalPrice/24000).toFixed(2)} bookId={params.id} c_Email={booked.c_Email} booked={booked}/> : ''
+}                            </div>
+            <div className="btn-box">
+                              <button className="theme-btn w-100"  onClick={handlePayLater} type="submit">Book seats and Pay later</button>
                             </div>
-                          </div>{/* end col-lg-6 */}
-                          <div className="col-lg-6">
-                            <div className="input-box">
-                              <label className="label-text">Card Number</label>
-                              <div className="form-group">
-                                <span className="la la-credit-card form-icon" />
-                                <input className="form-control" type="text" name="text" placeholder="Card number" />
-                              </div>
-                            </div>
-                          </div>{/* end col-lg-6 */}
-                          <div className="col-lg-6">
-                            <div className="row">
-                              <div className="col-lg-6">
-                                <div className="input-box">
-                                  <label className="label-text">Expiry Month</label>
-                                  <div className="form-group">
-                                    <span className="la la-credit-card form-icon" />
-                                    <input className="form-control" type="text" name="text" placeholder="MM" />
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="col-lg-6">
-                                <div className="input-box">
-                                  <label className="label-text">Expiry Year</label>
-                                  <div className="form-group">
-                                    <span className="la la-credit-card form-icon" />
-                                    <input className="form-control" type="text" name="text" placeholder="YY" />
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>{/* end col-lg-6 */}
-                          <div className="col-lg-6">
-                            <div className="input-box">
-                              <label className="label-text">CVV</label>
-                              <div className="form-group">
-                                <span className="la la-pencil form-icon" />
-                                <input className="form-control" type="text" name="text" placeholder="CVV" />
-                              </div>
-                            </div>
-                          </div>{/* end col-lg-6 */}
-                          <div className="col-lg-12">
-                            <div className="input-box">
-                              <div className="form-group">
-                                <div className="custom-checkbox">
-                                  <input type="checkbox" id="agreechb" />
-                                  <label htmlFor="agreechb">By continuing, you agree to the <a href="#">Terms and Conditions</a>.</label>
-                                </div>
-                              </div>
-                            </div>
-                          </div>{/* end col-lg-12 */}
-                          <div className="col-lg-12">
-                            <div className="btn-box">
-                              <button className="theme-btn" type="submit">Confirm Booking</button>
-                            </div>
-                          </div>{/* end col-lg-12 */}
-                        </div>
-                      </form>
-                    </div>{/* end contact-form-action */}
-                  </div>{/* end tab-pane*/}
-                  <div className="tab-pane fade" id="paypal" role="tabpanel" aria-labelledby="paypal-tab">
-                    <div className="contact-form-action">
-                      <form method="post">
-                        <div className="row">
-                          <div className="col-lg-6">
-                            <div className="input-box">
-                              <label className="label-text">Email Address</label>
-                              <div className="form-group">
-                                <span className="la la-envelope form-icon" />
-                                <input className="form-control" type="email" name="email" placeholder="Enter email address" />
-                              </div>
-                            </div>
-                          </div>{/* end col-lg-6 */}
-                          <div className="col-lg-6">
-                            <div className="input-box">
-                              <label className="label-text">Password</label>
-                              <div className="form-group">
-                                <span className="la la-lock form-icon" />
-                                <input className="form-control" type="text" name="text" placeholder="Enter password" />
-                              </div>
-                            </div>
-                          </div>{/* end col-lg-6 */}
-                          <div className="col-lg-12">
-                            <div className="btn-box">
-                              <button className="theme-btn" type="submit">Login Account</button>
-                            </div>
-                          </div>{/* end col-lg-12 */}
-                        </div>
-                      </form>
-                    </div>{/* end contact-form-action */}
-                  </div>{/* end tab-pane*/}
-                  <div className="tab-pane fade" id="payoneer" role="tabpanel" aria-labelledby="payoneer-tab">
-                    <div className="contact-form-action">
-                      <form method="post">
-                        <div className="row">
-                          <div className="col-lg-6">
-                            <div className="input-box">
-                              <label className="label-text">Email Address</label>
-                              <div className="form-group">
-                                <span className="la la-envelope form-icon" />
-                                <input className="form-control" type="email" name="email" placeholder="Enter email address" />
-                              </div>
-                            </div>
-                          </div>{/* end col-lg-6 */}
-                          <div className="col-lg-6">
-                            <div className="input-box">
-                              <label className="label-text">Password</label>
-                              <div className="form-group">
-                                <span className="la la-lock form-icon" />
-                                <input className="form-control" type="text" name="text" placeholder="Enter password" />
-                              </div>
-                            </div>
-                          </div>{/* end col-lg-6 */}
-                          <div className="col-lg-12">
-                            <div className="btn-box">
-                              <button className="theme-btn" type="submit">Login Account</button>
-                            </div>
-                          </div>{/* end col-lg-12 */}
-                        </div>
-                      </form>
-                    </div>{/* end contact-form-action */}
-                  </div>{/* end tab-pane*/}
-                </div>{/* end tab-content */}
-              </div>{/* end form-content */}
-            </div>{/* end form-box */}
+              </div>
+           
           </div>{/* end col-lg-8 */}
           <div className="col-lg-4">
             <div className="form-box booking-detail-form">

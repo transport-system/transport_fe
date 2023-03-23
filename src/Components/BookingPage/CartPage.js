@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 import bookApi from "../../api/bookApi";
 import "./bookingPage.css";
 import emailjs from '@emailjs/browser';
+import PaypalPay from "../PaypalPay";
 
 const Item = (props) => (
   <div className="item-container">
@@ -116,6 +117,8 @@ useEffect(() => {
             >
               Thanh toán
             </Button>
+            <PaypalPay/>
+
           </Form.Item>              </Form>
             </div>
           </div>

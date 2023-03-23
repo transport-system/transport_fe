@@ -79,7 +79,7 @@ function Booking(){
                         </div>
         
                     </div>
-                    <div class="filter-bar d-flex align-items-center justify-content-between">
+                    {/* <div class="filter-bar d-flex align-items-center justify-content-between">
                         <div class="filter-bar-filter d-flex flex-wrap align-items-center">
                             <div class="filter-option">
                                 <h3 class="title font-size-16">Filter by:</h3>
@@ -238,7 +238,7 @@ function Booking(){
                                 <option value="5">A to Z</option>
                             </select>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
            
@@ -258,6 +258,7 @@ function Booking(){
                                             <select 
                                   name='departure'
                                   class="form-control prepend-input address-1"
+                                  
                                 >
                                   <option className='m-3' value="Sài Gòn">Sài Gòn</option>
                                   <option value="Huế">Huế</option>

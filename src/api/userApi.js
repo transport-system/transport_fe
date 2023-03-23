@@ -23,6 +23,12 @@ const userApi = {
   },getBooked(id){
     const url = `/api/booking/account/${id}`;
     return axiosPrivate.get(url);
+  },requestRefund(id){
+    const url = `/api/booking/refund/${id}`;
+    return axiosPrivate.get(url);
+  },rateCompany(data){
+    const url = `/api/feedbacks/create`;
+    return axiosPrivate.post(url,data);
   }
 
 };
