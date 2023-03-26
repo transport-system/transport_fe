@@ -28,6 +28,24 @@ function PaymentComplete() {
 
     }
     }
+    const hancleCancel = async () =>{
+      try {
+        const response = await userApi.cancelRequestRefund(params.id);
+        console.log(response.data);
+        
+
+        if (response.data) {
+            message.success("Cancel success!!")
+            
+        } else {
+            message.error(response.data.message);
+
+        }
+    } catch (err) {
+        message.error(err.message);
+
+    }
+    }
     const getBooked = async () => {
         try {
             const response = await bookApi.getBookedById(params.id);
@@ -273,9 +291,13 @@ function PaymentComplete() {
                   <li><span className="text-black font-weight-bold">Cancellation cost</span>10% Total fee</li>
                 </ul>
 
-                {localStorage.getItem("userID") ?  <div className="btn-box">
+                {localStorage.getItem("userID") && booked.status === "DONE" ?  <div className="btn-box">
                   <button onClick={()=>handleRefund()} className="theme-btn border-0 text-white bg-7 ">Cancel your booking</button>
                 </div> : ''}
+                {localStorage.getItem("userID") && booked.status === "REQUESTREFUND" ?  <div className="btn-box">
+                  <button onClick={()=>hancleCancel()} className="theme-btn border-0 text-white bg-7 ">Cancel request</button>
+                </div> : ''}
+               
                
               </div>{/* end card-item */}
             </div>

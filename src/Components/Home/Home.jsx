@@ -14,7 +14,8 @@ import {useNavigate} from "react-router-dom";
      const navigate = useNavigate();
      const [Trips, setTrips] = useState([]);
 
-  
+     var today = new Date().toISOString().split('T')[0];
+
      useEffect(()=>{
       Aos.init({duration: 2000})
     }, [])
@@ -114,6 +115,7 @@ import {useNavigate} from "react-router-dom";
                             <div class="form-group">
                               <span class="la la-calendar form-icon"></span>
                               <input
+                                     min={today}
                                 class="date-range form-control"
                                 type="date"
                                 name="date"

@@ -55,6 +55,26 @@ message.success("Send Success!")
         setIsModalOpen(false)
         form.resetFields()
       };
+
+
+      const cancelRequestRefund = async (values) => {
+        try {
+            const response = await userApi.cancelRequestRefund(values);
+            console.log(response.data);
+
+            if (response.data) {
+message.success("Cancel Success!")
+            } else {
+                message.error("Cancel Fail!");
+
+            }
+        } catch (err) {
+            message.error("Cancel Fail!");
+
+        }
+    };
+      
+   
   return (
     <tr>
     <th scope="row">#{booked.id}</th>
@@ -72,15 +92,21 @@ message.success("Send Success!")
 }
     <td >
       <div className="table-content m-1 ">
-        <button className="theme-btn theme-btn-small" onClick={()=>navigate(`/paymentcomplete/${booked.id}`)}>View Detail</button>
+        <button className="theme-btn theme-btn-small" onClick={()=>navigate(`/paymentcomplete/${booked.id}`)}>View</button>
        
       </div>
+      
       <div className="table-content m-1 ">
 
       <button className="theme-btn theme-btn-small" type="primary" onClick={showModal}>
         Review
       </button>
       </div>
+
+      {booked.status === "REQUESTREFUND" ? <div className="table-content m-1 ">
+        <button className="theme-btn theme-btn-small" onClick={cancelRequestRefund}>Cancel Refund</button>
+       
+      </div> : ''}
 
     </td>
     <Modal title="Feedback" open={isModalOpen} onOk={form.submit} onCancel={handleCancel}>

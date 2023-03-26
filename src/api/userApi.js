@@ -24,11 +24,14 @@ const userApi = {
     const url = `/api/booking/account/${id}`;
     return axiosPrivate.get(url);
   },requestRefund(id){
-    const url = `/api/booking/refund/${id}`;
+    const url = `/api/booking/RequestRefunded/${id}`;
     return axiosPrivate.get(url);
   },rateCompany(data){
     const url = `/api/feedbacks/create`;
     return axiosPrivate.post(url,data);
+  },cancelRequestRefund(id){
+    const url = `/api/booking/CancelRequestRefunded/${id}`;
+    return axiosPrivate.get(url);
   }
 
 };

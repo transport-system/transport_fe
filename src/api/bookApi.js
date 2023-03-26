@@ -10,6 +10,9 @@ const bookApi ={
     },getBookedById(id){
         const url = `/api/booking/${id}`
         return axiosClient.get(url);
+    },useVoucher(data){
+        const url = `/api/booking/voucher`
+        return axiosClient.post(url,data);
     }
     
 };
