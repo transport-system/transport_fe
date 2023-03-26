@@ -250,7 +250,7 @@ function CheckOut() {
             console.log(response.data);
     
             if (response.data) {
-              // getBooked();
+              getBooked();
 
                 
             } else {
