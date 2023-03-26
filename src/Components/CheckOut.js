@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useParams,useNavigate } from "react-router";
 import bookApi from '../api/bookApi';
 import paymentApi from "../api/paymentApi";
+import userApi from "../api/userApi";
 // import PaypalPay from "./PaypalPay";
 
 function CheckOut() {
@@ -239,8 +240,29 @@ function CheckOut() {
         //   console.log(values);
         }
       }; 
-    
+      const useVouncher = async (values) => {
+        values.bookingId = booked.id
+        console.log(values)
 
+        try {
+          console.log(values)
+            const response = await bookApi.useVoucher(values);
+            console.log(response.data);
+    
+            if (response.data) {
+              // getBooked();
+
+                
+            } else {
+                message.error(response.data.message);
+    
+            }
+        } catch (err) {
+            message.error(err.message);
+    
+        }
+    };
+    
       
       const tranfer=(time)=>{
        const newTime = new Date(time).toLocaleString("en-US", {
@@ -359,7 +381,32 @@ START BOOKING AREA
                       <li className="font-size-15"><span className="w-auto d-block mb-n1"><i className="la la-calendar mr-1 font-size-17" />From</span>{booked.tripResponse ?  tranfer(booked.tripResponse.timeDeparture) : ''}</li>
                       <li className="font-size-15"><span className="w-auto d-block mb-n1"><i className="la la-calendar mr-1 font-size-17" />To</span>{booked.tripResponse ?  tranfer(booked.tripResponse.timeArrival) : ''}</li>
                     </ul>
+                    <div className="section-block" />
+
+                    <h3 className="card-title pb-3">Voucher</h3>
+                    <div method="post list-items list-items-2 list-items-flush py-2">
+                    <div className="">
+                      <div className=" responsive-column">
+                        <div className="input-box">
+                          <Form onFinish={useVouncher}>
+                          <div className="form-group">
+                            <Form.Item name="code">
+                            <Input className="form-control" />
+
+                            </Form.Item>
+                          </div>
+                          <Button className="btn btn-primary mb-1"   type="primary" htmlType="submit">Apply Vouncher</Button>
+                          </Form>
+                          
+
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                    
+                    <div className="section-block" />
                     <h3 className="card-title pb-3">Order Details</h3>
+                 
                     <div className="section-block" />
                     <ul className="list-items list-items-2 py-3">
                       <li><span>Type:</span>{booked.tripResponse ? booked.tripResponse.vehicle.vehicleType :''}</li>
