@@ -178,7 +178,7 @@ const Navbar = () => {
               <a href="#" class="down-button"
                 ><i class="la la-angle-down"></i></a>
               <div class="logo">
-                <a href="#"
+                <a href="/"
                   >
                     SWP BUS</a>
                 <div class="menu-toggler">

@@ -90,6 +90,12 @@ function Order({
                       label="First Name"
                       name="firstname"
                       class="form-group"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please input your name!',
+                        },
+                      ]}
                     >
                       <Input
                         prefix={<span class="la la-user form-icon"></span>}
@@ -99,7 +105,12 @@ function Order({
                   </div>
                   <div class="col-lg-6 responsive-column">
                     <div class="input-box"></div>
-                    <Form.Item label="Last Name" name="lastname">
+                    <Form.Item label="Last Name" name="lastname"  rules={[
+        {
+          required: true,
+          message: 'Please input your name!',
+        },
+      ]}>
                       <Input
                                prefix={<span class="la la-user form-icon"></span>}
                                placeholder="Enter your lastname"
@@ -108,7 +119,16 @@ function Order({
                   </div>
                   <div class="col-lg-6 responsive-column">
                     <div class="input-box"></div>
-                    <Form.Item label="Email" name="email">
+                    <Form.Item label="Email" name="email"  rules={[
+        {
+          required: true,
+          message: 'Please input your email!',
+          
+        }, {
+          type: 'email',
+          message: 'The input is not valid E-mail!',
+        },
+      ]}>
                       <Input          prefix={<span class="la la-envelope-o form-icon"></span>}
                         placeholder="Enter your email"/>
                     </Form.Item>
@@ -116,7 +136,12 @@ function Order({
                   <div class="col-lg-6 responsive-column">
                     <div class="input-box"></div>
 
-                    <Form.Item label="phone" name="phone">
+                    <Form.Item label="phone" name="phone"  rules={[
+        {
+          required: true,
+          message: 'Please input your phone!',
+        },
+      ]}>
                       
                       <Input   prefix={ <span class="la la-phone form-icon"></span>}
                         placeholder="Enter your phone"/>

@@ -202,23 +202,20 @@ function CheckOut() {
                       </div>
                     </div>
                     <div class="inv-body">
-                 
+                    Thank you. We hope your experience was awesome and we can’t wait to see you again soon.
                     </div>
                     <div class="inv-footer">
                       <div><!-- required --></div>
                       <div>
                         <table>
-                          <tr>
-                            <th>Sub total</th>
-                            <td>200</td>
-                          </tr>
+            
                           <tr>
                             <th>Sales tax</th>
-                            <td>200</td>
+                            <td>{booked.voucher ? booked.voucher.discountValue : '0'}%</td>
                           </tr>
                           <tr>
                             <th>Grand total</th>
-                            <td>1200</td>
+                            <td>${ price(booked.totalPrice)}</td>
                           </tr>
                         </table>
                       </div>
@@ -236,7 +233,7 @@ function CheckOut() {
             console.log(response);
           }
         } catch (err) {
-          message.error("Payment Timeout");
+          message.error(err.response.data.message)
         //   console.log(values);
         }
       }; 
@@ -258,7 +255,7 @@ function CheckOut() {
     
             }
         } catch (err) {
-            message.error(err.message);
+          message.error(err.response.data.message)
     
         }
     };
@@ -334,7 +331,7 @@ START BOOKING AREA
                           <div className="form-group mb-0">
                             <div className="custom-checkbox mb-0">
                               <input type="checkbox" id="receiveChb" />
-                              <label htmlFor="receiveChb">I want to receive Trizen's promotional offers in the future</label>
+                              <label htmlFor="receiveChb">I want to receive SWP promotional offers in the future</label>
                             </div>
                           </div>
                         </div>
@@ -351,7 +348,11 @@ START BOOKING AREA
 {    booked.totalPrice ?        <PaypalPay totalPriceUSD={(booked.totalPrice/24000).toFixed(2)} bookId={params.id} c_Email={booked.c_Email} booked={booked}/> : ''
 }                            </div>
             <div className="btn-box">
-                              <button className="theme-btn w-100"  onClick={handlePayLater} type="submit">Book seats and Pay later</button>
+
+
+            
+           { booked.tripResponse ? ( booked.tripResponse.allowPaylater ? <button className="theme-btn w-100"  onClick={handlePayLater} type="submit">Book seats and Pay later</button>  : '' ) : ''}
+                              
                             </div>
               </div>
            
@@ -419,8 +420,8 @@ START BOOKING AREA
                     </ul>
                     <div className="section-block" />
                     <ul className="list-items list-items-2 pt-3">
-                      <li><span>Sub Total:</span>${booked.totalPrice ? price(booked.totalPrice) : ''}</li>
-                      <li><span>Vouncher:</span>$0</li>
+                      {/* <li><span>Sub Total:</span>${booked.totalPrice ? price(booked.totalPrice) : ''}</li> */}
+                      <li><span>Vouncher:</span>{booked.voucher ? booked.voucher.discountValue : ''}%</li>
                       <li><span>Total Price:</span>${booked.totalPrice ? price(booked.totalPrice) : ''}</li>
                     </ul>
                   </div>

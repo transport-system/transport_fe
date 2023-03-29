@@ -13,6 +13,9 @@ const bookApi ={
     },useVoucher(data){
         const url = `/api/booking/voucher`
         return axiosClient.post(url,data);
+    },getRoutes(){
+        const url = `/api/route/propose`
+        return axiosClient.get(url);
     }
     
 };

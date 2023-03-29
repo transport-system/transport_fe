@@ -8,6 +8,7 @@ import Booking from "../Booking";
 import {HideLoading, ShowLoading} from "../../redux/alertsSlice";
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import Routes from './Routes';
 
  const Home = () => {
      const dispatch = useDispatch();
@@ -340,87 +341,7 @@ import {useNavigate} from "react-router-dom";
             {/* end col-lg-12 */}
           </div>
           {/* end row */}
-          <div className="row padding-top-60px">
-            <div className="col-lg-4 responsive-column">
-              <div className="card-item flight-card">
-                <div className="card-img">
-                  <a href="flight-single.html" className="d-block">
-                    <img height={210} src="https://reviewvilla.vn/wp-content/uploads/2022/06/dia-diem-du-lich-Vung-Tau-15-1024x523.jpg" alt="destination-img" />
-                    <span className="badge">Sài Gòn</span>
-                  </a>
-                </div>
-                <div className="card-body">
-                  <img src="images/american-airline.png" alt="" className="flight-logo" />
-                  <h3 className="card-title">
-                    <a href="flight-single.html">Huế to Sài Gòn</a>
-                  </h3>
-                  <p className="card-meta">One way </p>
-                  <div className="card-price d-flex align-items-center justify-content-between">
-                    <p>
-                      <span className="price__from">From</span>
-                      <span className="price__num">10.000VNĐ</span>
-                    </p>
-                    <a href="http://localhost:3000/booking?departure=Hu%E1%BA%BF&arrival=S%C3%A0i+G%C3%B2n&date=2023-03-28" className="btn-text">Read details<i className="la la-angle-right" /></a>
-                  </div>
-                </div>
-              </div>
-              {/* end card-item */}
-            </div>
-            {/* end col-lg-4 */}
-            <div className="col-lg-4 responsive-column">
-              <div className="card-item flight-card">
-                <div className="card-img">
-                  <a href="flight-single.html" className="d-block">
-                    <img height={210} src="https://reviewvilla.vn/wp-content/uploads/2022/06/dia-diem-du-lich-Vung-Tau-15-1024x523.jpg" alt="destination-img" />
-                    <span className="badge">Sài Gòn</span>
-                  </a>
-                </div>
-                <div className="card-body">
-                  <img src="images/american-airline.png" alt="" className="flight-logo" />
-                  <h3 className="card-title">
-                    <a href="flight-single.html">Huế to Sài Gòn</a>
-                  </h3>
-                  <p className="card-meta">One way </p>
-                  <div className="card-price d-flex align-items-center justify-content-between">
-                    <p>
-                      <span className="price__from">From</span>
-                      <span className="price__num">10.000VNĐ</span>
-                    </p>
-                    <a href="http://localhost:3000/booking?departure=Hu%E1%BA%BF&arrival=S%C3%A0i+G%C3%B2n&date=2023-03-28" className="btn-text">Read details<i className="la la-angle-right" /></a>
-                  </div>
-                </div>
-              </div>
-              {/* end card-item */}
-            </div>
-            {/* end col-lg-4 */}
-            <div className="col-lg-4 responsive-column">
-              <div className="card-item flight-card">
-                <div className="card-img">
-                  <a href="flight-single.html" className="d-block">
-                    <img height={210} src="https://reviewvilla.vn/wp-content/uploads/2022/06/dia-diem-du-lich-Vung-Tau-15-1024x523.jpg" alt="destination-img" />
-                    <span className="badge">Sài Gòn</span>
-                  </a>
-                </div>
-                <div className="card-body">
-                  <img src="images/american-airline.png" alt="" className="flight-logo" />
-                  <h3 className="card-title">
-                    <a href="flight-single.html">Huế to Sài Gòn</a>
-                  </h3>
-                  <p className="card-meta">One way </p>
-                  <div className="card-price d-flex align-items-center justify-content-between">
-                    <p>
-                      <span className="price__from">From</span>
-                      <span className="price__num">10.000VNĐ</span>
-                    </p>
-                    <a href="http://localhost:3000/booking?departure=Hu%E1%BA%BF&arrival=S%C3%A0i+G%C3%B2n&date=2023-03-28" className="btn-text">Read details<i className="la la-angle-right" /></a>
-                  </div>
-                </div>
-              </div>
-              {/* end card-item */}
-            </div>
-          
-            {/* end col-lg-4 */}
-          </div>
+         <Routes/>
           {/* end row */}
         </div>
         {/* end container */}

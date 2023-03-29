@@ -1,4 +1,4 @@
-import { Col, Row } from 'antd';
+import { Col, Row, message } from 'antd';
 import React from 'react'
 
 export default function SeatSelection({selectedSeats,setSelectedSeats,Trip,Seat}) {
@@ -6,11 +6,18 @@ export default function SeatSelection({selectedSeats,setSelectedSeats,Trip,Seat}
     // seatClass= "gray";
     const selectOrUnselectSeats=(seatNumber)=>{
         console.log(seatNumber)
-        if(selectedSeats.includes(seatNumber)){
-            setSelectedSeats(selectedSeats.filter((seat)=>seat!==seatNumber))
+        if(selectedSeats.length <6){
+            if(selectedSeats.includes(seatNumber)){
+                setSelectedSeats(selectedSeats.filter((seat)=>seat!==seatNumber))
+            }else{
+                setSelectedSeats([...selectedSeats,seatNumber])
+            }
         }else{
-            setSelectedSeats([...selectedSeats,seatNumber])
+            message.error("Please choose less than 6 seats")
+            setSelectedSeats(selectedSeats.filter((seat)=>seat!==seatNumber))
+
         }
+      
     }
 
   return (

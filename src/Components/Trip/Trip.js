@@ -51,7 +51,9 @@ function Trip({ trip }) {
                             <div>
                                 <h3 class="card-title font-size-17">{trip.departure} - {trip.arrival}</h3>
                                 {/* <p class="card-meta font-size-14" className="m-0">One way</p>  */}
-                                <p class="card-meta font-size-14">  {trip.company.companyName}  <StarFilled className="pl-1" style={{"color":"#ffc107","vertical-align": "0.1em"}}/> {trip.company.rating} <span>({(trip.company.feedBacks).length} reviews)</span>
+                                <p class="card-meta font-size-14">  {trip.company.companyName}  <StarFilled className="pl-1" style={{"color":"#ffc107","vertical-align": "0.1em"}}/>
+                                 {trip.company.rating} <span>({(trip.company.feedBacks).length} reviews)</span>
+                                 <span>- Paylater : {trip.allowPaylater ? "YES" : "No"}  </span>
                         </p>
 
                             </div>
