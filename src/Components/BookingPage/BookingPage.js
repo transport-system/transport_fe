@@ -310,8 +310,8 @@ function BookingPage(){
                     <div className="single-content-item padding-top-40px padding-bottom-40px">
                       <h3 className="title font-size-20">Select your Seats</h3>
                       <p className="pt-3">Maecenas vitae turpis condimentum metus tincidunt semper bibendum ut orci. Donec eget accumsan est. Duis laoreet sagittis elit et vehicula.</p>
-                      <SeatSelection selectedSeats={selectedSeats} setSelectedSeats={setSelectedSeats} Trip={Trip} Seat={Seats}/>
-
+{       Trip &&               <SeatSelection selectedSeats={selectedSeats} setSelectedSeats={setSelectedSeats} Trip={Trip} Seat={Seats}/>
+}
                     </div>{/* end single-content-item */}
                     <div className="section-block" />
                   </div>{/* end seat-selection */}

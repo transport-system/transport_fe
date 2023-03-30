@@ -6,7 +6,7 @@ export default function SeatSelection({selectedSeats,setSelectedSeats,Trip,Seat}
     // seatClass= "gray";
     const selectOrUnselectSeats=(seatNumber)=>{
         console.log(seatNumber)
-        if(selectedSeats.length <6){
+        if(selectedSeats.length <5){
             if(selectedSeats.includes(seatNumber)){
                 setSelectedSeats(selectedSeats.filter((seat)=>seat!==seatNumber))
             }else{
